@@ -1,0 +1,23 @@
+{
+  "verified_on": "2026-11-09",
+  "publisher": "Inside Airbnb",
+  "license": "CC BY 4.0",
+  "sources": [
+    {
+      "city": "london",
+      "snapshot_date": "2026-09-17",
+      "url": "https://data.insideairbnb.com/united-kingdom/england/london/2026-09-17/data/listings.csv.gz",
+      "relative_path": "data/raw/london/2026-09-17/listings.csv.gz",
+      "sha256": "8017870734a9bffa1b424937372e5f02f8c4a114e5060534d7423be5fd718b4c",
+      "bytes": 48282891
+    },
+    {
+      "city": "bristol",
+      "snapshot_date": "2026-09-22",
+      "url": "https://data.insideairbnb.com/united-kingdom/england/bristol/2026-09-22/data/listings.csv.gz",
+      "relative_path": "data/raw/bristol/2026-09-22/listings.csv.gz",
+      "sha256": "74fce3284f341551ee4244fc3255b87b6854ec7507fb44c5d3a7f164645e8490",
+      "bytes": 1629141
+    }
+  ]
+}
