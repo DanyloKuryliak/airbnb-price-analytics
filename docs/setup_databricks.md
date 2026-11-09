@@ -42,11 +42,11 @@ The run specification `databricks/eda_validation_run.json` supports reproducible
 databricks jobs submit --json @databricks/eda_validation_run.json --no-wait -p ucu
 ```
 
-Check the returned run until it reaches a terminal state. Successful execution writes `eda_findings.md`, `eda_profile.md`, `eda_run.json` and two PNG figures. Only reviewed aggregate artifacts are version-controlled; raw records and notebook outputs are excluded.
+Check the returned run until it reaches a terminal state. Successful execution writes `eda_findings.md`, `eda_audit.md`, `eda_profile.md`, `eda_run.json` and nine PNG figures. Only reviewed aggregate artifacts are version-controlled; raw records and notebook outputs are excluded.
 
 ## Execution evidence
 
-Databricks run `279406330341406` completed successfully on 9 November 2026 using Python 3.11.10, pandas 1.5.3 and NumPy 1.23.5. Both source checksums passed. The analysis covered 91,954 London and 2,932 Bristol rows, with no raw rows removed. `docs/databricks_validation.json` records the validated notebook checksum; `docs/eda_run.json` records source and runtime provenance.
+Databricks run `666902642756262` completed successfully on 9 November 2026 using Python 3.11.10, pandas 1.5.3 and NumPy 1.23.5. Both source checksums passed. The analysis covered 91,954 London and 2,932 Bristol rows, with no raw rows removed. `docs/databricks_validation.json` records the validated notebook checksum; `docs/eda_run.json` records source and runtime provenance.
 
 ## References
 

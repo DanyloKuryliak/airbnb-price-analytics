@@ -38,7 +38,7 @@ uv pip install --python .venv/bin/python -r requirements.txt
 .venv/bin/python scripts/validate_repository.py
 ```
 
-Run from the repository root. Execute `.venv/bin/python scripts/run_eda.py` to regenerate the EDA reports. The notebook also runs interactively with Jupyter. It uses pandas and matplotlib already available in Databricks; local notebook-execution packages are not needed there. Reports are aggregate-only; notebook outputs are not saved.
+Run from the repository root. Execute `.venv/bin/python scripts/run_eda.py` to regenerate the EDA reports. The notebook also runs interactively with Jupyter. It uses pandas and matplotlib already available in Databricks; local notebook-execution packages are not needed there. The findings report places nine figures beside their interpretations. Detailed checks are retained in a [technical audit](docs/eda_audit.md). Repository notebook source is output-free; reports contain aggregates only.
 
 [Databricks setup](docs/setup_databricks.md) defines storage paths, parameters, runtime requirements and execution evidence. [Collaboration](docs/collaboration.md) defines branch ownership and review. [Data contract](docs/data_contract.md) separates provisioned EDA storage from proposed production objects.
 

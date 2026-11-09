@@ -1,9 +1,9 @@
 {
   "platform": "Databricks Free Edition",
-  "run_id": 279406330341406,
-  "task_run_id": 146773149671721,
+  "run_id": 666902642756262,
+  "task_run_id": 35647390242417,
   "result": "SUCCESS",
-  "notebook_source_sha256": "6f9d92b522ac5b047f5ff0c985d92a9b45d9f6e5d4b933530c033552c28ce4f6",
+  "notebook_source_sha256": "6e043941458c753dacf28e3970a753f7aca7d29b1cf0ca441d9bf62f6f599ea7",
   "source_path": "notebooks/01_eda_london_bristol.ipynb",
   "input_root": "/Volumes/workspace/airbnb_eda/raw",
   "output_root": "/Volumes/workspace/airbnb_eda/artifacts",
