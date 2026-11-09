@@ -1,0 +1,18 @@
+{
+  "run_name": "airbnb-london-bristol-eda-validation",
+  "timeout_seconds": 1200,
+  "tasks": [
+    {
+      "task_key": "eda",
+      "notebook_task": {
+        "notebook_path": "/Workspace/Shared/airbnb-price-analytics/01_eda_london_bristol",
+        "base_parameters": {
+          "input_root": "/Volumes/workspace/airbnb_eda/raw",
+          "output_root": "/Volumes/workspace/airbnb_eda/artifacts"
+        },
+        "source": "WORKSPACE"
+      },
+      "timeout_seconds": 900
+    }
+  ]
+}

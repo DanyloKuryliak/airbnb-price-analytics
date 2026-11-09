@@ -1,0 +1,14 @@
+{
+  "platform": "Databricks Free Edition",
+  "run_id": 462135459584852,
+  "task_run_id": 555897841919315,
+  "result": "SUCCESS",
+  "notebook_source_sha256": "31f18bab443d8cdb46aac5b4c42b3cd3aeee45b4fbc62c809d289d99b3a84d37",
+  "source_path": "notebooks/01_eda_london_bristol.ipynb",
+  "input_root": "/Volumes/workspace/airbnb_eda/raw",
+  "output_root": "/Volumes/workspace/airbnb_eda/artifacts",
+  "scope": [
+    "london",
+    "bristol"
+  ]
+}
