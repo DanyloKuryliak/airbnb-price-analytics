@@ -14,7 +14,7 @@ Repository: https://github.com/DanyloKuryliak/airbnb-price-analytics. The reposi
 | `ml/price-model` | Person 3: training-only baseline, model and evaluation |
 | `bi/dashboard-genie` | Person 4: dashboard and Genie Agent |
 
-The initial scaffold is published on `main`. Person 1's implemented EDA is proposed separately for review. The other feature branches start from the common scaffold; their notebooks are explicitly unimplemented role entry points.
+The initial scaffold is published on `main`. Person 1's implemented EDA was integrated through [pull request #4](https://github.com/DanyloKuryliak/airbnb-price-analytics/pull/4) and is available on `main`. The other feature branches start from the common scaffold; their notebooks are explicitly unimplemented role entry points.
 
 ## Daily workflow
 

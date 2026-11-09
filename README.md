@@ -12,7 +12,7 @@ Use local Git and the GitHub CLI for collaboration and notebook import/export fo
 
 | Owner | Responsibility | Status |
 | --- | --- | --- |
-| Person 1 | London/Bristol EDA, data quality and leakage review | Implemented and verified in Free Edition; submitted on `eda/london-bristol` for review |
+| Person 1 | London/Bristol EDA, data quality and leakage review | Complete, verified in Free Edition and merged into `main` |
 | Person 2 | Parameterized medallion ETL and architecture | Shared schema/folder reserved; implementation pending |
 | Person 3 | Training-only baseline, price model and test evaluation | Shared schema/folder reserved; implementation pending |
 | Person 4 | Three-page AI/BI dashboard and Genie Agent | Implementation pending |
@@ -40,13 +40,13 @@ uv pip install --python .venv/bin/python -r requirements.txt
 .venv/bin/python scripts/validate_repository.py
 ```
 
-Run from the repository root. Person 1's EDA implementation and reports are in the [`eda/london-bristol` branch](https://github.com/DanyloKuryliak/airbnb-price-analytics/tree/eda/london-bristol) pending review. On that branch, execute `.venv/bin/python scripts/run_eda.py`. The notebook also runs interactively with Jupyter. It uses pandas and matplotlib already available in Databricks; local notebook-execution packages are not needed there. Reports are aggregate-only; notebook outputs are not saved.
+Run from the repository root. Person 1's EDA implementation and reports are merged into `main`. Execute `.venv/bin/python scripts/run_eda.py`. The notebook also runs interactively with Jupyter. It uses pandas and matplotlib already available in Databricks; local notebook-execution packages are not needed there. Reports are aggregate-only; notebook outputs are not saved.
 
 [Databricks setup](docs/setup_databricks.md) covers volume paths, notebook import, access checks and Git integration. [Collaboration](docs/collaboration.md) defines branch ownership and review. [Data contract](docs/data_contract.md) separates provisioned EDA storage from proposed production objects.
 
 ## Execution order and evaluation
 
-1. Run Person 1's [EDA notebook](https://github.com/DanyloKuryliak/airbnb-price-analytics/blob/eda/london-bristol/notebooks/01_eda_london_bristol.ipynb). Review [findings](https://github.com/DanyloKuryliak/airbnb-price-analytics/blob/eda/london-bristol/docs/eda_findings.md), [column profile](https://github.com/DanyloKuryliak/airbnb-price-analytics/blob/eda/london-bristol/docs/eda_profile.md) and [cleaning specification](https://github.com/DanyloKuryliak/airbnb-price-analytics/blob/eda/london-bristol/docs/cleaning_specification.md).
+1. Run Person 1's [EDA notebook](https://github.com/DanyloKuryliak/airbnb-price-analytics/blob/main/notebooks/01_eda_london_bristol.ipynb). Review [findings](https://github.com/DanyloKuryliak/airbnb-price-analytics/blob/main/docs/eda_findings.md), [column profile](https://github.com/DanyloKuryliak/airbnb-price-analytics/blob/main/docs/eda_profile.md) and [cleaning specification](https://github.com/DanyloKuryliak/airbnb-price-analytics/blob/main/docs/cleaning_specification.md).
 2. Agree the contract. Person 2 implements one pipeline parameterized by city: immutable Bronze files, typed/flagged Silver records and Gold aggregates/features.
 3. Person 3 reserves a per-city test set before model selection, fits preprocessing and room-type/accommodates median baselines on training rows only, evaluates MAE in GBP for each city and combined, and writes per-listing predictions to Gold.
 4. Freeze successful A/B pipeline/model versions at the end of Week 1. Record all release evidence in the [holdout protocol](reports/city_c_protocol.md).

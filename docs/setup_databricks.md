@@ -23,6 +23,8 @@ The final notebook completed successfully on Databricks Free Edition on 9 Novemb
 
 ## Shared team entry point
 
+Workspace browser location: **Workspace → Shared → airbnb-price-analytics**. This project is a shared folder in the existing Free Edition workspace, whose displayed name is `workspace`; it is not a second workspace in the workspace switcher.
+
 [Open the team-start notebook](https://dbc-9d87a163-804c.cloud.databricks.com/editor/notebooks/2436275107746855?o=7474649631277855). Share this URL after adding teammates to this workspace. The URL is navigation, not an access token or invitation; recipients must have their own authenticated accounts and the required data privileges.
 
 ## Workspace access
