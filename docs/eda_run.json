@@ -1,0 +1,33 @@
+{
+  "completed_utc": "2026-11-09T10:19:37.375750+00:00",
+  "python": "3.11.10",
+  "pandas": "1.5.3",
+  "numpy": "1.23.5",
+  "sources": [
+    {
+      "city": "london",
+      "snapshot_date": "2026-09-17",
+      "url": "https://data.insideairbnb.com/united-kingdom/england/london/2026-09-17/data/listings.csv.gz",
+      "relative_path": "data/raw/london/2026-09-17/listings.csv.gz",
+      "sha256": "8017870734a9bffa1b424937372e5f02f8c4a114e5060534d7423be5fd718b4c",
+      "bytes": 48282891
+    },
+    {
+      "city": "bristol",
+      "snapshot_date": "2026-09-22",
+      "url": "https://data.insideairbnb.com/united-kingdom/england/bristol/2026-09-22/data/listings.csv.gz",
+      "relative_path": "data/raw/bristol/2026-09-22/listings.csv.gz",
+      "sha256": "74fce3284f341551ee4244fc3255b87b6854ec7507fb44c5d3a7f164645e8490",
+      "bytes": 1629141
+    }
+  ],
+  "rows": {
+    "bristol": 2932,
+    "london": 91954
+  },
+  "raw_rows_removed": 0,
+  "analysis_scope": [
+    "london",
+    "bristol"
+  ]
+}
