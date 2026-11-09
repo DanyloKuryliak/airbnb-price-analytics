@@ -5,7 +5,7 @@
     {
       "task_key": "eda",
       "notebook_task": {
-        "notebook_path": "/Workspace/Shared/airbnb-price-analytics/01_eda_london_bristol",
+        "notebook_path": "/Workspace/airbnb-price-analytics/01_eda_london_bristol",
         "base_parameters": {
           "input_root": "/Volumes/workspace/airbnb_eda/raw",
           "output_root": "/Volumes/workspace/airbnb_eda/artifacts"
