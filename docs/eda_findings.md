@@ -1,6 +1,6 @@
 # London and Bristol: exploratory analysis
 
-Execution: 2026-11-09T11:14:24.724779+00:00. Prices are nightly advertised GBP amounts. One row is one listing snapshot.
+Execution: 2026-11-09T11:23:54.681548+00:00. Prices are nightly advertised GBP amounts. One row is one listing snapshot.
 
 ## Summary
 
@@ -81,7 +81,18 @@ The per-night quotation equals the target on every paired row. Revenue divided b
 
 ## Cleaning and modelling implications
 
-Preserve raw records and quality flags. Retain missing targets without replacing them with zero; exclude them only from supervised evaluation. Recover bathrooms from text. Omit entirely missing attributes from the initial model. Review extreme positive prices without automatic capping. Exclude quotation/revenue-derived predictors. Fit preprocessing and baseline statistics on training data only, after reserving the test set.
+| Evidence | Recommended treatment |
+| --- | --- |
+| Missing target prices | Preserve records; exclude missing outcomes from supervised evaluation |
+| Entirely missing attributes | Omit instant booking and neighbourhood-group labels from the initial model |
+| Numeric bathrooms missing | Parse bathroom text, retaining unknown values and audit flags |
+| Extreme positive prices | Retain and review; do not apply unvalidated caps |
+| Price quotations and revenue proxies | Exclude from predictors |
+| Missing review history | Preserve missing scores; do not replace them with low ratings |
+
+Reserve the test set before model selection; fit preprocessing and baseline statistics on training data only.
+
+[Detailed cleaning and feature specification](cleaning_specification.md).
 
 ## Limitations
 
