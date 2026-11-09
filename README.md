@@ -1,20 +1,18 @@
 # Airbnb price analytics — Team Вишня
 
-A reproducible UK Airbnb lakehouse and nightly advertised-price study using Databricks Free Edition. London and Bristol are development cities; Greater Manchester is the unseen transfer city and remains locked until the Week 1 pipeline/model freeze. Currency: GBP.
+A reproducible UK Airbnb lakehouse and nightly advertised-price study using Databricks Free Edition. London and Bristol are development cities; Greater Manchester is the unseen transfer city and remains locked until the A/B pipeline and model freeze. Currency: GBP.
 
-## Shared team environment
+## Project components
 
-GitHub is the source of truth for all four roles. The shared Databricks project is `/Workspace/Shared/airbnb-price-analytics`; start with the [team workspace notebook](https://dbc-9d87a163-804c.cloud.databricks.com/editor/notebooks/2436275107746855?o=7474649631277855). Team lakehouse schemas are `workspace.airbnb_bronze`, `workspace.airbnb_silver` and `workspace.airbnb_gold`. Production tables remain unimplemented. Existing A/B raw inputs and aggregate EDA artifacts are stored in managed volumes.
-
-Use local Git and the GitHub CLI for collaboration and notebook import/export for Databricks execution. Databricks Git integration is optional. Teammate invitations require verified usernames and workspace emails.
+The repository contains the exploratory analysis, lakehouse interfaces, ETL and model entry points, dashboard/Genie specifications and transfer-evaluation protocol. GitHub versions source and aggregate artifacts; Databricks Free Edition provides execution and governed storage.
 
 ## Ownership and status
 
 | Owner | Responsibility | Status |
 | --- | --- | --- |
-| Person 1 | London/Bristol EDA, data quality and leakage review | Complete, verified in Free Edition and merged into `main` |
-| Person 2 | Parameterized medallion ETL and architecture | Shared schema/folder reserved; implementation pending |
-| Person 3 | Training-only baseline, price model and test evaluation | Shared schema/folder reserved; implementation pending |
+| Person 1 | London/Bristol EDA, data quality and leakage review | Implemented and executed successfully |
+| Person 2 | Parameterized medallion ETL and architecture | Schema provisioned; implementation pending |
+| Person 3 | Training-only baseline, price model and test evaluation | Schema provisioned; implementation pending |
 | Person 4 | Three-page AI/BI dashboard and Genie Agent | Implementation pending |
 
 ## Sources
@@ -40,24 +38,24 @@ uv pip install --python .venv/bin/python -r requirements.txt
 .venv/bin/python scripts/validate_repository.py
 ```
 
-Run from the repository root. Person 1's EDA implementation and reports are merged into `main`. Execute `.venv/bin/python scripts/run_eda.py`. The notebook also runs interactively with Jupyter. It uses pandas and matplotlib already available in Databricks; local notebook-execution packages are not needed there. Reports are aggregate-only; notebook outputs are not saved.
+Run from the repository root. Execute `.venv/bin/python scripts/run_eda.py` to regenerate the EDA reports. The notebook also runs interactively with Jupyter. It uses pandas and matplotlib already available in Databricks; local notebook-execution packages are not needed there. Reports are aggregate-only; notebook outputs are not saved.
 
-[Databricks setup](docs/setup_databricks.md) covers volume paths, notebook import, access checks and Git integration. [Collaboration](docs/collaboration.md) defines branch ownership and review. [Data contract](docs/data_contract.md) separates provisioned EDA storage from proposed production objects.
+[Databricks setup](docs/setup_databricks.md) defines storage paths, parameters, runtime requirements and execution evidence. [Collaboration](docs/collaboration.md) defines branch ownership and review. [Data contract](docs/data_contract.md) separates provisioned EDA storage from proposed production objects.
 
 ## Execution order and evaluation
 
 1. Run Person 1's [EDA notebook](https://github.com/DanyloKuryliak/airbnb-price-analytics/blob/main/notebooks/01_eda_london_bristol.ipynb). Review [findings](https://github.com/DanyloKuryliak/airbnb-price-analytics/blob/main/docs/eda_findings.md), [column profile](https://github.com/DanyloKuryliak/airbnb-price-analytics/blob/main/docs/eda_profile.md) and [cleaning specification](https://github.com/DanyloKuryliak/airbnb-price-analytics/blob/main/docs/cleaning_specification.md).
 2. Agree the contract. Person 2 implements one pipeline parameterized by city: immutable Bronze files, typed/flagged Silver records and Gold aggregates/features.
 3. Person 3 reserves a per-city test set before model selection, fits preprocessing and room-type/accommodates median baselines on training rows only, evaluates MAE in GBP for each city and combined, and writes per-listing predictions to Gold.
-4. Freeze successful A/B pipeline/model versions at the end of Week 1. Record all release evidence in the [holdout protocol](reports/city_c_protocol.md).
-5. In Week 2, run the unchanged pipeline/model on Greater Manchester and record first-run failures and metrics before fixes. Classify subsequent changes and compare results.
+4. Freeze the validated A/B pipeline and model versions. Record all release evidence in the [holdout protocol](reports/city_c_protocol.md).
+5. After the release gate, run the unchanged pipeline/model on Greater Manchester and record first-run failures and metrics before fixes. Classify subsequent changes and compare results.
 6. Person 4 delivers city overview, A/B comparison and model-diagnostics dashboard pages plus a Genie Agent grounded on Gold tables. Add transfer findings after the locked first run.
 
 No paid infrastructure, APIs or external managed services are required. Free Edition quotas apply; do not upgrade to a paid trial or create classic clusters to bypass limits.
 
 ## Submission links
 
-The team admin submits the repository link. The repository is private until access requirements are confirmed.
+The repository is the submission entry point. Additional component links are recorded as their implementations are completed.
 
 | Artifact | Location |
 | --- | --- |

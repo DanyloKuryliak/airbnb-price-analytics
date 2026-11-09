@@ -1,6 +1,6 @@
 # London and Bristol: EDA findings
 
-Execution completed: 2026-11-09T10:19:37.160508+00:00. Python 3.11.10; pandas 1.5.3; NumPy 1.23.5.
+Execution completed: 2026-11-09T11:03:54.437710+00:00. Python 3.11.10; pandas 1.5.3; NumPy 1.23.5.
 
 ## Findings and limitations
 
@@ -301,7 +301,7 @@ Begin with room_type, property_type, accommodates, bedrooms, beds, bathrooms, la
 
 ## Unresolved questions
 
-The publisher confirms that price uses local currency and that the dollar sign is an export artifact. Confirm newer quotation and revenue-estimation semantics against publisher metadata. Resolve structural missingness before selecting optional features. Agree table contracts and shared workspace access. ETL execution, price model, dashboard, Genie and City C transfer are separate deliverables.
+The publisher confirms that price uses local currency and that the dollar sign is an export artifact. Confirm newer quotation and revenue-estimation semantics against publisher metadata. Resolve structural missingness before selecting optional features. Production ETL, model evaluation and geographic transfer performance remain outside the scope of this exploratory analysis.
 
 ## Figures
 

@@ -1,10 +1,10 @@
 # Third-city execution protocol
 
-Status: locked. No third-city source file has been acquired or inspected during project setup.
+Status: locked. No third-city source file has been acquired or inspected.
 
 ## Release gate
 
-At the end of Week 1, the ETL and ML owners record and approve:
+After validation of the A/B pipeline and model, the ETL and ML owners record and approve:
 
 1. A/B pipeline commit and successful job run identifiers.
 2. Frozen model artifact, feature allowlist, environment and fitted preprocessing.

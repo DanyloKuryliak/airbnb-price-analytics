@@ -1,6 +1,6 @@
 # Data contract
 
-Status: proposed production interfaces; ETL and ML owners must approve before creating dependencies. Shared lakehouse schemas and EDA storage are provisioned; production tables are not implemented.
+Status: proposed production interfaces; ETL and ML owners must approve before creating dependencies. Lakehouse schemas and EDA storage are provisioned; production tables are not implemented.
 
 ## Names and storage
 
