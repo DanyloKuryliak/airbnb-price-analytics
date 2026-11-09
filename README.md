@@ -4,7 +4,7 @@ A reproducible UK Airbnb lakehouse and nightly advertised-price study using Data
 
 ## Shared team environment
 
-GitHub is the source of truth for all four roles. The shared Databricks project is `/Workspace/Shared/airbnb-price-analytics`; start with `00_team_start`. Team lakehouse schemas are `workspace.airbnb_bronze`, `workspace.airbnb_silver` and `workspace.airbnb_gold`. Production tables remain unimplemented. Existing A/B raw inputs and aggregate EDA artifacts are stored in managed volumes.
+GitHub is the source of truth for all four roles. The shared Databricks project is `/Workspace/Shared/airbnb-price-analytics`; start with the [team workspace notebook](https://dbc-9d87a163-804c.cloud.databricks.com/editor/notebooks/2436275107746855?o=7474649631277855). Team lakehouse schemas are `workspace.airbnb_bronze`, `workspace.airbnb_silver` and `workspace.airbnb_gold`. Production tables remain unimplemented. Existing A/B raw inputs and aggregate EDA artifacts are stored in managed volumes.
 
 Use local Git and the GitHub CLI for collaboration and notebook import/export for Databricks execution. Databricks Git integration is optional. Teammate invitations require verified usernames and workspace emails.
 

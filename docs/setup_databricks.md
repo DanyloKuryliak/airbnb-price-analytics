@@ -21,6 +21,10 @@ Only London and Bristol inputs are permitted. The production schemas are reserve
 
 The final notebook completed successfully on Databricks Free Edition on 9 November 2026: [run 462135459584852](https://dbc-9d87a163-804c.cloud.databricks.com/?o=7474649631277855#job/782438016558836/run/462135459584852). Runtime: Python 3.11.10, pandas 1.5.3 and NumPy 1.23.5. Both source SHA-256 checks passed. Counts: London 91,954; Bristol 2,932; raw rows removed: zero. The reports and figures in `docs/` are copied from this successful run. Notebook source contains no saved outputs.
 
+## Shared team entry point
+
+[Open the team-start notebook](https://dbc-9d87a163-804c.cloud.databricks.com/editor/notebooks/2436275107746855?o=7474649631277855). Share this URL after adding teammates to this workspace. The URL is navigation, not an access token or invitation; recipients must have their own authenticated accounts and the required data privileges.
+
 ## Workspace access
 
 The team uses the existing Free Edition workspace; a second workspace is not required. A shared project folder is the collaboration entry point. The root inherits `CAN MANAGE` for workspace `users` from `/Shared`; the explicit `airbnb_team` group grant is `CAN_EDIT`. The inherited permission is broader and remains effective. Changing the project ACL does not remove parent permissions.
@@ -89,4 +93,3 @@ pandas and matplotlib are used without notebook-scoped package installation. The
 - [Unity Catalog privileges](https://docs.databricks.com/aws/en/data-governance/unity-catalog/manage-privileges/).
 - [Workspace-local group limitations](https://docs.databricks.com/aws/en/admin/users-groups/workspace-local-groups).
 - [Files in Unity Catalog volumes](https://docs.databricks.com/aws/en/volumes/volume-files).
-
