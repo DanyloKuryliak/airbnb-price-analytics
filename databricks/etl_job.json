@@ -1,0 +1,60 @@
+{
+  "name": "airbnb-price-analytics-etl",
+  "email_notifications": {
+    "no_alert_for_skipped_runs": false
+  },
+  "webhook_notifications": {},
+  "timeout_seconds": 0,
+  "max_concurrent_runs": 1,
+  "tasks": [
+    {
+      "task_key": "etl_london",
+      "run_if": "ALL_SUCCESS",
+      "notebook_task": {
+        "notebook_path": "/Workspace/airbnb-price-analytics/02_etl_pipeline",
+        "base_parameters": {
+          "city": "london",
+          "write_tables": "true"
+        },
+        "source": "WORKSPACE"
+      },
+      "max_retries": 0,
+      "min_retry_interval_millis": 900000,
+      "retry_on_timeout": false,
+      "disable_auto_optimization": true,
+      "timeout_seconds": 0,
+      "email_notifications": {},
+      "webhook_notifications": {},
+      "disabled": false
+    },
+    {
+      "task_key": "etl_bristol",
+      "depends_on": [
+        {
+          "task_key": "etl_london"
+        }
+      ],
+      "run_if": "ALL_SUCCESS",
+      "notebook_task": {
+        "notebook_path": "/Workspace/airbnb-price-analytics/02_etl_pipeline",
+        "base_parameters": {
+          "city": "bristol",
+          "write_tables": "true"
+        },
+        "source": "WORKSPACE"
+      },
+      "max_retries": 0,
+      "min_retry_interval_millis": 900000,
+      "retry_on_timeout": false,
+      "disable_auto_optimization": true,
+      "timeout_seconds": 0,
+      "email_notifications": {},
+      "webhook_notifications": {},
+      "disabled": false
+    }
+  ],
+  "queue": {
+    "enabled": true
+  },
+  "performance_target": "PERFORMANCE_OPTIMIZED"
+}
