@@ -63,6 +63,7 @@ The repository is the submission entry point. Additional component links are rec
 | EDA | `notebooks/01_eda_london_bristol.ipynb` |
 | ETL and architecture | Person 2 deliverable pending |
 | Price model and test metrics | Person 3 deliverable pending |
-| Dashboard and Genie | `notebooks/04_bi_gold_views.ipynb`, [dashboard/](dashboard/README.md), [genie/](genie/README.md); published links pending |
+| Dashboard and Genie | [Published dashboard](https://dbc-9d87a163-804c.cloud.databricks.com/dashboardsv3/01f1ddf200ba157a95304bfb7de814d9/published?o=7474649631277855), [Genie Agent](https://dbc-9d87a163-804c.cloud.databricks.com/genie/rooms/01f1ddf53d9712aa86536a5490b6eb3f?o=7474649631277855); sources: `notebooks/04_bi_gold_views.ipynb`, [dashboard/](dashboard/README.md), [genie/](genie/README.md) |
+
 | Third-city first run | Locked; protocol in `reports/city_c_protocol.md` |
 | Presentation | Final PDF or share link pending |
