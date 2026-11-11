@@ -13,7 +13,7 @@ The repository contains the exploratory analysis, lakehouse interfaces, ETL and 
 | Person 1 | London/Bristol EDA, data quality and leakage review | Implemented and executed successfully |
 | Person 2 | Parameterized medallion ETL and architecture | Schema provisioned; implementation pending |
 | Person 3 | Training-only baseline, price model and test evaluation | Schema provisioned; implementation pending |
-| Person 4 | Three-page AI/BI dashboard and Genie Agent | Implementation pending |
+| Person 4 | Three-page AI/BI dashboard and Genie Agent | Gold reporting views, dashboard definition and Genie configuration implemented; workspace deployment pending |
 
 ## Sources
 
@@ -63,6 +63,35 @@ The repository is the submission entry point. Additional component links are rec
 | EDA | `notebooks/01_eda_london_bristol.ipynb` |
 | ETL and architecture | Person 2 deliverable pending |
 | Price model and test metrics | Person 3 deliverable pending |
-| Dashboard and Genie | Person 4 links pending |
+| Dashboard and Genie | [Published dashboard](https://dbc-9d87a163-804c.cloud.databricks.com/dashboardsv3/01f1ddf200ba157a95304bfb7de814d9/published?o=7474649631277855), [Genie Agent](https://dbc-9d87a163-804c.cloud.databricks.com/genie/rooms/01f1ddf53d9712aa86536a5490b6eb3f?o=7474649631277855); sources: `notebooks/04_bi_gold_views.ipynb`, [dashboard/](dashboard/README.md), [genie/](genie/README.md) |
+
 | Third-city first run | Locked; protocol in `reports/city_c_protocol.md` |
 | Presentation | Final PDF or share link pending |
+
+
+
+## City C — Greater Manchester
+
+After developing the ETL pipeline using London and Bristol, we tested it on a third city: Greater Manchester.
+
+The goal was to process a new dataset using the existing pipeline without introducing city-specific cleaning or feature engineering rules.
+
+**City C details:**
+
+- City identifier: `greater-manchester`
+- Snapshot date: `2026-09-22`
+- Source: Inside Airbnb
+- ETL pipeline: `notebooks/02_etl_pipeline.ipynb`
+- Feature version: `v1`
+- Gold features: 7,799 rows
+- Initial split: `NULL`
+
+The pipeline successfully processed Greater Manchester.
+
+During the first run, we encountered a filesystem compatibility issue in the Bronze layer. We fixed the file-copy operation without changing the data cleaning or feature engineering logic.
+
+After processing City C, the existing London and Bristol row counts and split distributions remained unchanged.
+
+The resulting features are available in `workspace.airbnb_gold.features` for evaluation with the frozen ML model.
+
+See [City C ETL Evaluation](docs/city_c_evaluation.md) for the complete results and validation details.

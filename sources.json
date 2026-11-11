@@ -1,5 +1,5 @@
 {
-  "verified_on": "2026-11-09",
+  "verified_on": "2026-11-11",
   "publisher": "Inside Airbnb",
   "license": "CC BY 4.0",
   "sources": [
@@ -18,6 +18,14 @@
       "relative_path": "data/raw/bristol/2026-09-22/listings.csv.gz",
       "sha256": "74fce3284f341551ee4244fc3255b87b6854ec7507fb44c5d3a7f164645e8490",
       "bytes": 1629141
+    },
+    {
+      "city": "greater-manchester",
+      "snapshot_date": "2026-09-22",
+      "url": "https://data.insideairbnb.com/united-kingdom/england/greater-manchester/2026-09-22/data/listings.csv.gz",
+      "relative_path": "data/raw/greater-manchester/2026-09-22/listings.csv.gz",
+      "sha256": "759c3f498722a536ae7c498adf57774b7dd43239db8c94d5e75e7f12dcb45ce6",
+      "bytes": 4266300
     }
   ]
 }
