@@ -14,6 +14,7 @@ Status: proposed production interfaces; ETL and ML owners must approve before cr
 | Gold predictions | `workspace.airbnb_gold.predictions` | One row per listing snapshot and model version | Person 3 |
 | Gold metrics | `workspace.airbnb_gold.model_metrics` | Dataset, split, city, model version and metric | Person 3 |
 | Gold overview | `workspace.airbnb_gold.city_metrics` | Aggregates with explicit valid-row denominators | Persons 2–4 |
+| Gold reporting views | `workspace.airbnb_gold.v_*` | Read-only, commented views for the dashboard and Genie; model views require `predictions` | Person 4 |
 
 Catalog `workspace` is verified in the current workspace. Separate workspaces use the same schema and table names under their available catalog. Catalog, schema, input root and output root must be parameters. Bronze, Silver and Gold schemas are reserved for team development. Production tables have not been created. Optional fields may remain nullable in the contract even when excluded from the initial model; `instant_bookable` and `neighbourhood_group_cleansed` are entirely missing in the pinned A/B snapshots.
 

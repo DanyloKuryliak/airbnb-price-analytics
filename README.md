@@ -13,7 +13,7 @@ The repository contains the exploratory analysis, lakehouse interfaces, ETL and 
 | Person 1 | London/Bristol EDA, data quality and leakage review | Implemented and executed successfully |
 | Person 2 | Parameterized medallion ETL and architecture | Schema provisioned; implementation pending |
 | Person 3 | Training-only baseline, price model and test evaluation | Schema provisioned; implementation pending |
-| Person 4 | Three-page AI/BI dashboard and Genie Agent | Implementation pending |
+| Person 4 | Three-page AI/BI dashboard and Genie Agent | Gold reporting views, dashboard definition and Genie configuration implemented; workspace deployment pending |
 
 ## Sources
 
@@ -63,6 +63,6 @@ The repository is the submission entry point. Additional component links are rec
 | EDA | `notebooks/01_eda_london_bristol.ipynb` |
 | ETL and architecture | Person 2 deliverable pending |
 | Price model and test metrics | Person 3 deliverable pending |
-| Dashboard and Genie | Person 4 links pending |
+| Dashboard and Genie | `notebooks/04_bi_gold_views.ipynb`, [dashboard/](dashboard/README.md), [genie/](genie/README.md); published links pending |
 | Third-city first run | Locked; protocol in `reports/city_c_protocol.md` |
 | Presentation | Final PDF or share link pending |
