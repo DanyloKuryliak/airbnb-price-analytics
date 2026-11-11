@@ -34,11 +34,11 @@
       "name": "error_by_neighbourhood",
       "displayName": "Error by neighbourhood",
       "queryLines": [
-        "SELECT city_name, model_version, segment AS neighbourhood, evaluated_listings, model_mae_gbp,\n",
+        "SELECT city_name, model_version, run_label, segment AS neighbourhood, evaluated_listings, model_mae_gbp,\n",
         "       mean_signed_error_gbp, median_actual_price_gbp\n",
         "FROM workspace.airbnb_gold.v_model_error_segments\n",
         "WHERE segment_type = 'neighbourhood' AND evaluated_listings >= 20\n",
-        "QUALIFY ROW_NUMBER() OVER (PARTITION BY city_name, model_version, pipeline_version\n",
+        "QUALIFY ROW_NUMBER() OVER (PARTITION BY city_name, model_version, run_label, pipeline_version\n",
         "                           ORDER BY model_mae_gbp DESC) <= 10\n",
         "ORDER BY city_name, model_mae_gbp DESC\n"
       ]
@@ -47,7 +47,7 @@
       "name": "error_by_room_type",
       "displayName": "Error by room type",
       "queryLines": [
-        "SELECT city_name, model_version, segment AS room_type, evaluated_listings, model_mae_gbp,\n",
+        "SELECT city_name, model_version, run_label, segment AS room_type, evaluated_listings, model_mae_gbp,\n",
         "       baseline_mae_gbp, mean_signed_error_gbp, under_priced_share_pct\n",
         "FROM workspace.airbnb_gold.v_model_error_segments\n",
         "WHERE segment_type = 'room_type'\n",
@@ -58,11 +58,11 @@
       "name": "largest_errors",
       "displayName": "Largest errors",
       "queryLines": [
-        "SELECT city_name, model_version, pricing_direction, listing_id, room_type, neighbourhood,\n",
+        "SELECT city_name, model_version, run_label, pricing_direction, listing_id, room_type, neighbourhood,\n",
         "       accommodates, actual_price_gbp, predicted_price_gbp, model_error_gbp, model_pct_error\n",
         "FROM workspace.airbnb_gold.v_model_predictions\n",
         "WHERE in_evaluation_set AND model_evaluable AND pricing_direction IN ('under-priced', 'over-priced')\n",
-        "QUALIFY ROW_NUMBER() OVER (PARTITION BY city_name, model_version, pipeline_version, pricing_direction\n",
+        "QUALIFY ROW_NUMBER() OVER (PARTITION BY city_name, model_version, run_label, pipeline_version, pricing_direction\n",
         "                           ORDER BY ABS(model_error_gbp) DESC) <= 10\n",
         "ORDER BY city_name, pricing_direction, ABS(model_error_gbp) DESC\n"
       ]
@@ -71,12 +71,12 @@
       "name": "model_mae",
       "displayName": "Model mae",
       "queryLines": [
-        "SELECT city_name, model_version, pipeline_version, evaluation_role,\n",
+        "SELECT city_name, model_version, run_label, pipeline_version, evaluation_role,\n",
         "       'Baseline: median by room type and guests' AS estimator,\n",
         "       baseline_mae_gbp AS mae_gbp, baseline_evaluated_listings AS evaluated_listings\n",
         "FROM workspace.airbnb_gold.v_model_performance\n",
         "UNION ALL\n",
-        "SELECT city_name, model_version, pipeline_version, evaluation_role,\n",
+        "SELECT city_name, model_version, run_label, pipeline_version, evaluation_role,\n",
         "       'Model' AS estimator, model_mae_gbp AS mae_gbp, model_evaluated_listings AS evaluated_listings\n",
         "FROM workspace.airbnb_gold.v_model_performance\n",
         "ORDER BY city_name, estimator\n"
@@ -86,18 +86,18 @@
       "name": "model_performance",
       "displayName": "Model performance",
       "queryLines": [
-        "SELECT city_name, model_version, pipeline_version, evaluation_role, listings_in_set,\n",
+        "SELECT city_name, model_version, run_label, pipeline_version, evaluation_role, listings_in_set,\n",
         "       prediction_coverage_pct, model_evaluated_listings, baseline_mae_gbp, model_mae_gbp,\n",
-        "       mae_improvement_gbp, mae_improvement_pct\n",
+        "       mae_improvement_gbp, mae_improvement_pct, baseline_median_abs_error_gbp, model_median_abs_error_gbp\n",
         "FROM workspace.airbnb_gold.v_model_performance\n",
-        "ORDER BY model_version, evaluation_role, city_name\n"
+        "ORDER BY model_version, run_label, evaluation_role, city_name\n"
       ]
     },
     {
       "name": "predicted_vs_actual",
       "displayName": "Predicted vs actual",
       "queryLines": [
-        "SELECT city_name, model_version, room_type, actual_price_gbp, predicted_price_gbp\n",
+        "SELECT city_name, model_version, run_label, room_type, actual_price_gbp, predicted_price_gbp\n",
         "FROM workspace.airbnb_gold.v_model_predictions\n",
         "WHERE in_evaluation_set AND model_evaluable AND actual_price_gbp <= 1000\n"
       ]
@@ -1158,9 +1158,9 @@
             "name": "model_headline",
             "multilineTextboxSpec": {
               "lines": [
-                "## Model against baseline: replace this headline with the measured test-set MAE finding\n",
+                "## The model cuts test-set error by 26%: £76.93 MAE against £104.17 for the baseline\n",
                 "\n",
-                "Reported rows: held-out test split of London and Bristol, and every row of a transfer city. Error = predicted - actual; negative means the model under-prices. Baseline = training median for the same room type and guest capacity. After the third-city run, filter by model version to compare the first run with later changes."
+                "London + Bristol test split (12,434 listings, 100% coverage), model v1. The gain is 43% in Bristol and 26% in London, where a few listings advertised at about £5,000-£10,000 a night dominate the largest errors; the median absolute error (£32 against £45) is unaffected by them. Error = predicted - actual; negative means the model under-prices. Baseline = training median for the same room type and guest capacity. For the transfer city, filter by run: first_run is the unchanged model, later runs follow recorded fixes."
               ]
             }
           },
@@ -1300,7 +1300,7 @@
           "position": {
             "x": 0,
             "y": 2,
-            "width": 3,
+            "width": 2,
             "height": 1
           }
         },
@@ -1431,9 +1431,142 @@
             }
           },
           "position": {
-            "x": 3,
+            "x": 2,
             "y": 2,
-            "width": 3,
+            "width": 2,
+            "height": 1
+          }
+        },
+        {
+          "widget": {
+            "name": "model_run",
+            "queries": [
+              {
+                "name": "model_run_model_mae",
+                "query": {
+                  "datasetName": "model_mae",
+                  "fields": [
+                    {
+                      "name": "run_label",
+                      "expression": "`run_label`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              },
+              {
+                "name": "model_run_model_performance",
+                "query": {
+                  "datasetName": "model_performance",
+                  "fields": [
+                    {
+                      "name": "run_label",
+                      "expression": "`run_label`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              },
+              {
+                "name": "model_run_predicted_vs_actual",
+                "query": {
+                  "datasetName": "predicted_vs_actual",
+                  "fields": [
+                    {
+                      "name": "run_label",
+                      "expression": "`run_label`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              },
+              {
+                "name": "model_run_error_by_room_type",
+                "query": {
+                  "datasetName": "error_by_room_type",
+                  "fields": [
+                    {
+                      "name": "run_label",
+                      "expression": "`run_label`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              },
+              {
+                "name": "model_run_error_by_neighbourhood",
+                "query": {
+                  "datasetName": "error_by_neighbourhood",
+                  "fields": [
+                    {
+                      "name": "run_label",
+                      "expression": "`run_label`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              },
+              {
+                "name": "model_run_largest_errors",
+                "query": {
+                  "datasetName": "largest_errors",
+                  "fields": [
+                    {
+                      "name": "run_label",
+                      "expression": "`run_label`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "filter-multi-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "run_label",
+                    "displayName": "Run",
+                    "queryName": "model_run_model_mae"
+                  },
+                  {
+                    "fieldName": "run_label",
+                    "displayName": "Run",
+                    "queryName": "model_run_model_performance"
+                  },
+                  {
+                    "fieldName": "run_label",
+                    "displayName": "Run",
+                    "queryName": "model_run_predicted_vs_actual"
+                  },
+                  {
+                    "fieldName": "run_label",
+                    "displayName": "Run",
+                    "queryName": "model_run_error_by_room_type"
+                  },
+                  {
+                    "fieldName": "run_label",
+                    "displayName": "Run",
+                    "queryName": "model_run_error_by_neighbourhood"
+                  },
+                  {
+                    "fieldName": "run_label",
+                    "displayName": "Run",
+                    "queryName": "model_run_largest_errors"
+                  }
+                ]
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Run"
+              }
+            }
+          },
+          "position": {
+            "x": 4,
+            "y": 2,
+            "width": 2,
             "height": 1
           }
         },
@@ -1523,8 +1656,8 @@
                       "expression": "`model_version`"
                     },
                     {
-                      "name": "pipeline_version",
-                      "expression": "`pipeline_version`"
+                      "name": "run_label",
+                      "expression": "`run_label`"
                     },
                     {
                       "name": "evaluation_role",
@@ -1553,6 +1686,14 @@
                     {
                       "name": "mae_improvement_pct",
                       "expression": "`mae_improvement_pct`"
+                    },
+                    {
+                      "name": "baseline_median_abs_error_gbp",
+                      "expression": "`baseline_median_abs_error_gbp`"
+                    },
+                    {
+                      "name": "model_median_abs_error_gbp",
+                      "expression": "`model_median_abs_error_gbp`"
                     }
                   ],
                   "disaggregated": true
@@ -1570,11 +1711,11 @@
                   },
                   {
                     "fieldName": "model_version",
-                    "displayName": "Model version"
+                    "displayName": "Model"
                   },
                   {
-                    "fieldName": "pipeline_version",
-                    "displayName": "Pipeline version"
+                    "fieldName": "run_label",
+                    "displayName": "Run"
                   },
                   {
                     "fieldName": "evaluation_role",
@@ -1603,6 +1744,14 @@
                   {
                     "fieldName": "mae_improvement_pct",
                     "displayName": "Improvement %"
+                  },
+                  {
+                    "fieldName": "baseline_median_abs_error_gbp",
+                    "displayName": "Baseline median AE £"
+                  },
+                  {
+                    "fieldName": "model_median_abs_error_gbp",
+                    "displayName": "Model median AE £"
                   }
                 ]
               },
@@ -1831,6 +1980,10 @@
                       "expression": "`city_name`"
                     },
                     {
+                      "name": "run_label",
+                      "expression": "`run_label`"
+                    },
+                    {
                       "name": "pricing_direction",
                       "expression": "`pricing_direction`"
                     },
@@ -1875,6 +2028,10 @@
                   {
                     "fieldName": "city_name",
                     "displayName": "City"
+                  },
+                  {
+                    "fieldName": "run_label",
+                    "displayName": "Run"
                   },
                   {
                     "fieldName": "pricing_direction",

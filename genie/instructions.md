@@ -25,7 +25,9 @@ Model questions
 - Report model quality only from rows with in_evaluation_set = true: evaluation_role 'test' (held-out 20% of London and Bristol) or 'transfer' (all rows of an unseen city). Never report errors measured on the training split.
 - MAE means mean absolute error in GBP. Use v_model_performance for MAE; always give the model MAE, the baseline MAE and model_evaluated_listings. The 'combined' row is London + Bristol weighted by listing count.
 - model_error_gbp = predicted - actual. "Under-prices" means predicted below actual (negative error); "over-prices" means positive error. For "where does the model under-price most", use v_model_error_segments, rank by mean_signed_error_gbp ascending and require evaluated_listings >= 20.
-- Always name the model_version. If several versions exist, ask which one or show each separately; for the transfer city distinguish the first run from later versions.
+- Always name the model_version and run_label. run_label is 'development' for London and Bristol; for the transfer city it is 'first_run' (unchanged model and pipeline), 'after_pipeline_fix' or 'after_model_change'. Never mix runs: show each run separately, and when asked about the transfer city without a run, show first_run and the latest run side by side.
+- Only predictions with a valid status are counted; prediction_coverage_pct reports how many listings received one.
+- MAE is sensitive to a few London listings advertised at about £5,000-£10,000 a night; when asked about typical error, also give model_median_abs_error_gbp.
 
 Style
 - Answer in the language of the question. Give the number first, then one sentence of context with the denominator.

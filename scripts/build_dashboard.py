@@ -17,8 +17,11 @@ DATASET_DIR = ROOT / 'dashboard' / 'datasets'
 OUTPUT = ROOT / 'dashboard' / 'airbnb_price_analytics.lvdash.json'
 SOURCE_NAMESPACE = 'workspace.airbnb_gold'
 
-# Headlines state a finding (assignment requirement). Values come from the EDA run of
-# 2026-11-09 (docs/eda_findings.md); verify them against the dashboard after deployment.
+# Headlines state a finding (assignment requirement). Overview and comparison values come from the
+# EDA run of 2026-11-09 (docs/eda_findings.md) and were verified on the deployed dashboard; model
+# values come from docs/model_results.md (model v1). Verify them after every rerun.
+# Settings exported by Databricks, preserved when the definition is regenerated.
+UI_SETTINGS = {'theme': {'widgetHeaderAlignment': 'ALIGNMENT_UNSPECIFIED'}, 'applyModeEnabled': False}
 PAGE_HEADLINES = {
     'overview': (
         '## London has 31 times more listings than Bristol, and its median night costs £175 against £130',
@@ -33,11 +36,13 @@ PAGE_HEADLINES = {
         'reading the overall gap, because the cities differ in room-type composition and listing size.',
     ),
     'model': (
-        '## Model against baseline: replace this headline with the measured test-set MAE finding',
-        'Reported rows: held-out test split of London and Bristol, and every row of a transfer city. '
-        'Error = predicted - actual; negative means the model under-prices. Baseline = training median '
-        'for the same room type and guest capacity. After the third-city run, filter by model version '
-        'to compare the first run with later changes.',
+        '## The model cuts test-set error by 26%: £76.93 MAE against £104.17 for the baseline',
+        'London + Bristol test split (12,434 listings, 100% coverage), model v1. The gain is 43% in Bristol '
+        'and 26% in London, where a few listings advertised at about £5,000-£10,000 a night dominate the '
+        'largest errors; the median absolute error (£32 against £45) is unaffected by them. Error = '
+        'predicted - actual; negative means the model under-prices. Baseline = training median for the '
+        'same room type and guest capacity. For the transfer city, filter by run: first_run is the '
+        'unchanged model, later runs follow recorded fixes.',
     ),
 }
 
@@ -183,17 +188,20 @@ def model_page():
           'error_by_neighbourhood', 'largest_errors']
     return [
         headline('model'),
-        place(multi_filter('model_city', 'city_name', 'City', ds), 0, 2, 3, 1),
-        place(multi_filter('model_version', 'model_version', 'Model version', ds), 3, 2, 3, 1),
+        place(multi_filter('model_city', 'city_name', 'City', ds), 0, 2, 2, 1),
+        place(multi_filter('model_version', 'model_version', 'Model version', ds), 2, 2, 2, 1),
+        place(multi_filter('model_run', 'run_label', 'Run', ds), 4, 2, 2, 1),
         place(chart('model_mae_chart', 'model_mae', 'bar', ('city_name', 'City', 'categorical'),
                     ('mae_gbp', 'MAE (£)', 'quantitative'), 'Test-set MAE: model against baseline',
                     color=('estimator', 'Estimator', 'categorical'), group=True), 0, 3, 3, 7),
         place(table('model_metrics_table', 'model_performance', [
-            ('city_name', 'City', 'string'), ('model_version', 'Model version', 'string'),
-            ('pipeline_version', 'Pipeline version', 'string'), ('evaluation_role', 'Set', 'string'),
+            ('city_name', 'City', 'string'), ('model_version', 'Model', 'string'),
+            ('run_label', 'Run', 'string'), ('evaluation_role', 'Set', 'string'),
             ('listings_in_set', 'Listings', 'int'), ('prediction_coverage_pct', 'Coverage %', 'float'),
             ('model_evaluated_listings', 'Evaluated', 'int'), ('baseline_mae_gbp', 'Baseline MAE £', 'float'),
             ('model_mae_gbp', 'Model MAE £', 'float'), ('mae_improvement_pct', 'Improvement %', 'float'),
+            ('baseline_median_abs_error_gbp', 'Baseline median AE £', 'float'),
+            ('model_median_abs_error_gbp', 'Model median AE £', 'float'),
         ], 'MAE with denominators and coverage'), 3, 3, 3, 7),
         place(chart('model_scatter', 'predicted_vs_actual', 'scatter',
                     ('actual_price_gbp', 'Actual price (£)', 'quantitative'),
@@ -209,7 +217,8 @@ def model_page():
                     'Neighbourhoods with the highest error (at least 20 evaluated listings)',
                     color=('city_name', 'City', 'categorical')), 0, 18, 3, 10),
         place(table('model_largest_errors', 'largest_errors', [
-            ('city_name', 'City', 'string'), ('pricing_direction', 'Direction', 'string'),
+            ('city_name', 'City', 'string'), ('run_label', 'Run', 'string'),
+            ('pricing_direction', 'Direction', 'string'),
             ('listing_id', 'Listing ID', 'string'), ('room_type', 'Room type', 'string'),
             ('neighbourhood', 'Neighbourhood', 'string'), ('accommodates', 'Guests', 'int'),
             ('actual_price_gbp', 'Actual £', 'float'), ('predicted_price_gbp', 'Predicted £', 'float'),
@@ -252,7 +261,7 @@ def main():
     if len(widget_names) != len(set(widget_names)):
         raise ValueError('Duplicate widget names')
 
-    OUTPUT.write_text(json.dumps({'datasets': datasets, 'pages': pages}, ensure_ascii=False, indent=2) + '\n',
+    OUTPUT.write_text(json.dumps({'datasets': datasets, 'pages': pages, 'uiSettings': UI_SETTINGS}, ensure_ascii=False, indent=2) + '\n',
                       encoding='utf-8')
     print(f'Wrote {OUTPUT.relative_to(ROOT)}: {len(datasets)} datasets, {len(pages)} pages, '
           f'{len(widget_names)} widgets, namespace {namespace}')
