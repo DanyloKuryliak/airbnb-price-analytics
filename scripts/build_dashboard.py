@@ -77,26 +77,13 @@ def chart(name, dataset, kind, x, y, title, color=None, group=False, description
     return {'name': name, 'queries': query(dataset, columns), 'spec': spec}
 
 
-COLUMN_TYPES = {'string': ('string', 'string'), 'int': ('integer', 'number'),
-                'float': ('float', 'number'), 'date': ('date', 'datetime')}
-
 
 def table(name, dataset, columns, title, description=None):
-    """columns: list of (field, label, type) with type in COLUMN_TYPES."""
-    specs = []
-    for order, (col, label, kind) in enumerate(columns):
-        data_type, display = COLUMN_TYPES[kind]
-        spec = {'fieldName': col, 'displayName': label, 'title': label, 'type': data_type,
-                'displayAs': display, 'visible': True, 'order': order, 'alignContent': 'left'
-                if kind == 'string' else 'right', 'allowSearch': kind == 'string'}
-        if kind == 'float':
-            spec['numberFormat'] = '0.00'
-        specs.append(spec)
+    """columns: list of (field, label, type); type documents the column and is not exported."""
+    specs = [{'fieldName': col, 'displayName': label} for col, label, _ in columns]
     return {'name': name, 'queries': query(dataset, [c[0] for c in columns]),
-            'spec': {'version': 1, 'widgetType': 'table',
+            'spec': {'version': 2, 'widgetType': 'table',
                      'encodings': {'columns': specs},
-                     'invisibleColumns': [], 'allowHTMLByDefault': False, 'itemsPerPage': 25,
-                     'paginationSize': 'default', 'condensed': True, 'withRowNumber': False,
                      'frame': frame(title, description)}}
 
 

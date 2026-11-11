@@ -300,167 +300,64 @@
               }
             ],
             "spec": {
-              "version": 1,
+              "version": 2,
               "widgetType": "table",
               "encodings": {
                 "columns": [
                   {
                     "fieldName": "city_name",
-                    "displayName": "City",
-                    "title": "City",
-                    "type": "string",
-                    "displayAs": "string",
-                    "visible": true,
-                    "order": 0,
-                    "alignContent": "left",
-                    "allowSearch": true
+                    "displayName": "City"
                   },
                   {
                     "fieldName": "snapshot_date",
-                    "displayName": "Snapshot",
-                    "title": "Snapshot",
-                    "type": "date",
-                    "displayAs": "datetime",
-                    "visible": true,
-                    "order": 1,
-                    "alignContent": "right",
-                    "allowSearch": false
+                    "displayName": "Snapshot"
                   },
                   {
                     "fieldName": "total_listings",
-                    "displayName": "Listings",
-                    "title": "Listings",
-                    "type": "integer",
-                    "displayAs": "number",
-                    "visible": true,
-                    "order": 2,
-                    "alignContent": "right",
-                    "allowSearch": false
+                    "displayName": "Listings"
                   },
                   {
                     "fieldName": "valid_price_listings",
-                    "displayName": "With valid price",
-                    "title": "With valid price",
-                    "type": "integer",
-                    "displayAs": "number",
-                    "visible": true,
-                    "order": 3,
-                    "alignContent": "right",
-                    "allowSearch": false
+                    "displayName": "With valid price"
                   },
                   {
                     "fieldName": "price_coverage_pct",
-                    "displayName": "Price coverage %",
-                    "title": "Price coverage %",
-                    "type": "float",
-                    "displayAs": "number",
-                    "visible": true,
-                    "order": 4,
-                    "alignContent": "right",
-                    "allowSearch": false,
-                    "numberFormat": "0.00"
+                    "displayName": "Price coverage %"
                   },
                   {
                     "fieldName": "median_price_gbp",
-                    "displayName": "Median price £",
-                    "title": "Median price £",
-                    "type": "float",
-                    "displayAs": "number",
-                    "visible": true,
-                    "order": 5,
-                    "alignContent": "right",
-                    "allowSearch": false,
-                    "numberFormat": "0.00"
+                    "displayName": "Median price £"
                   },
                   {
                     "fieldName": "median_availability_365",
-                    "displayName": "Median available days /365",
-                    "title": "Median available days /365",
-                    "type": "float",
-                    "displayAs": "number",
-                    "visible": true,
-                    "order": 6,
-                    "alignContent": "right",
-                    "allowSearch": false,
-                    "numberFormat": "0.00"
+                    "displayName": "Median available days /365"
                   },
                   {
                     "fieldName": "avg_review_score",
-                    "displayName": "Mean rating (0-5)",
-                    "title": "Mean rating (0-5)",
-                    "type": "float",
-                    "displayAs": "number",
-                    "visible": true,
-                    "order": 7,
-                    "alignContent": "right",
-                    "allowSearch": false,
-                    "numberFormat": "0.00"
+                    "displayName": "Mean rating (0-5)"
                   },
                   {
                     "fieldName": "review_listings",
-                    "displayName": "Rated listings",
-                    "title": "Rated listings",
-                    "type": "integer",
-                    "displayAs": "number",
-                    "visible": true,
-                    "order": 8,
-                    "alignContent": "right",
-                    "allowSearch": false
+                    "displayName": "Rated listings"
                   },
                   {
                     "fieldName": "distinct_hosts",
-                    "displayName": "Hosts",
-                    "title": "Hosts",
-                    "type": "integer",
-                    "displayAs": "number",
-                    "visible": true,
-                    "order": 9,
-                    "alignContent": "right",
-                    "allowSearch": false
+                    "displayName": "Hosts"
                   },
                   {
                     "fieldName": "listings_per_host",
-                    "displayName": "Listings per host",
-                    "title": "Listings per host",
-                    "type": "float",
-                    "displayAs": "number",
-                    "visible": true,
-                    "order": 10,
-                    "alignContent": "right",
-                    "allowSearch": false,
-                    "numberFormat": "0.00"
+                    "displayName": "Listings per host"
                   },
                   {
                     "fieldName": "entire_home_share_pct",
-                    "displayName": "Entire homes %",
-                    "title": "Entire homes %",
-                    "type": "float",
-                    "displayAs": "number",
-                    "visible": true,
-                    "order": 11,
-                    "alignContent": "right",
-                    "allowSearch": false,
-                    "numberFormat": "0.00"
+                    "displayName": "Entire homes %"
                   },
                   {
                     "fieldName": "neighbourhoods",
-                    "displayName": "Neighbourhoods",
-                    "title": "Neighbourhoods",
-                    "type": "integer",
-                    "displayAs": "number",
-                    "visible": true,
-                    "order": 12,
-                    "alignContent": "right",
-                    "allowSearch": false
+                    "displayName": "Neighbourhoods"
                   }
                 ]
               },
-              "invisibleColumns": [],
-              "allowHTMLByDefault": false,
-              "itemsPerPage": 25,
-              "paginationSize": "default",
-              "condensed": true,
-              "withRowNumber": false,
               "frame": {
                 "showTitle": true,
                 "title": "Headline metrics per city with denominators"
@@ -928,87 +825,36 @@
               }
             ],
             "spec": {
-              "version": 1,
+              "version": 2,
               "widgetType": "table",
               "encodings": {
                 "columns": [
                   {
                     "fieldName": "metric",
-                    "displayName": "Metric",
-                    "title": "Metric",
-                    "type": "string",
-                    "displayAs": "string",
-                    "visible": true,
-                    "order": 0,
-                    "alignContent": "left",
-                    "allowSearch": true
+                    "displayName": "Metric"
                   },
                   {
                     "fieldName": "unit",
-                    "displayName": "Unit",
-                    "title": "Unit",
-                    "type": "string",
-                    "displayAs": "string",
-                    "visible": true,
-                    "order": 1,
-                    "alignContent": "left",
-                    "allowSearch": true
+                    "displayName": "Unit"
                   },
                   {
                     "fieldName": "city_name",
-                    "displayName": "City",
-                    "title": "City",
-                    "type": "string",
-                    "displayAs": "string",
-                    "visible": true,
-                    "order": 2,
-                    "alignContent": "left",
-                    "allowSearch": true
+                    "displayName": "City"
                   },
                   {
                     "fieldName": "value",
-                    "displayName": "Value",
-                    "title": "Value",
-                    "type": "float",
-                    "displayAs": "number",
-                    "visible": true,
-                    "order": 3,
-                    "alignContent": "right",
-                    "allowSearch": false,
-                    "numberFormat": "0.00"
+                    "displayName": "Value"
                   },
                   {
                     "fieldName": "difference_vs_reference",
-                    "displayName": "Difference vs London",
-                    "title": "Difference vs London",
-                    "type": "float",
-                    "displayAs": "number",
-                    "visible": true,
-                    "order": 4,
-                    "alignContent": "right",
-                    "allowSearch": false,
-                    "numberFormat": "0.00"
+                    "displayName": "Difference vs London"
                   },
                   {
                     "fieldName": "pct_difference_vs_reference",
-                    "displayName": "Difference vs London %",
-                    "title": "Difference vs London %",
-                    "type": "float",
-                    "displayAs": "number",
-                    "visible": true,
-                    "order": 5,
-                    "alignContent": "right",
-                    "allowSearch": false,
-                    "numberFormat": "0.00"
+                    "displayName": "Difference vs London %"
                   }
                 ]
               },
-              "invisibleColumns": [],
-              "allowHTMLByDefault": false,
-              "itemsPerPage": 25,
-              "paginationSize": "default",
-              "condensed": true,
-              "withRowNumber": false,
               "frame": {
                 "showTitle": true,
                 "title": "Side-by-side metrics"
@@ -1714,132 +1560,52 @@
               }
             ],
             "spec": {
-              "version": 1,
+              "version": 2,
               "widgetType": "table",
               "encodings": {
                 "columns": [
                   {
                     "fieldName": "city_name",
-                    "displayName": "City",
-                    "title": "City",
-                    "type": "string",
-                    "displayAs": "string",
-                    "visible": true,
-                    "order": 0,
-                    "alignContent": "left",
-                    "allowSearch": true
+                    "displayName": "City"
                   },
                   {
                     "fieldName": "model_version",
-                    "displayName": "Model version",
-                    "title": "Model version",
-                    "type": "string",
-                    "displayAs": "string",
-                    "visible": true,
-                    "order": 1,
-                    "alignContent": "left",
-                    "allowSearch": true
+                    "displayName": "Model version"
                   },
                   {
                     "fieldName": "pipeline_version",
-                    "displayName": "Pipeline version",
-                    "title": "Pipeline version",
-                    "type": "string",
-                    "displayAs": "string",
-                    "visible": true,
-                    "order": 2,
-                    "alignContent": "left",
-                    "allowSearch": true
+                    "displayName": "Pipeline version"
                   },
                   {
                     "fieldName": "evaluation_role",
-                    "displayName": "Set",
-                    "title": "Set",
-                    "type": "string",
-                    "displayAs": "string",
-                    "visible": true,
-                    "order": 3,
-                    "alignContent": "left",
-                    "allowSearch": true
+                    "displayName": "Set"
                   },
                   {
                     "fieldName": "listings_in_set",
-                    "displayName": "Listings",
-                    "title": "Listings",
-                    "type": "integer",
-                    "displayAs": "number",
-                    "visible": true,
-                    "order": 4,
-                    "alignContent": "right",
-                    "allowSearch": false
+                    "displayName": "Listings"
                   },
                   {
                     "fieldName": "prediction_coverage_pct",
-                    "displayName": "Coverage %",
-                    "title": "Coverage %",
-                    "type": "float",
-                    "displayAs": "number",
-                    "visible": true,
-                    "order": 5,
-                    "alignContent": "right",
-                    "allowSearch": false,
-                    "numberFormat": "0.00"
+                    "displayName": "Coverage %"
                   },
                   {
                     "fieldName": "model_evaluated_listings",
-                    "displayName": "Evaluated",
-                    "title": "Evaluated",
-                    "type": "integer",
-                    "displayAs": "number",
-                    "visible": true,
-                    "order": 6,
-                    "alignContent": "right",
-                    "allowSearch": false
+                    "displayName": "Evaluated"
                   },
                   {
                     "fieldName": "baseline_mae_gbp",
-                    "displayName": "Baseline MAE £",
-                    "title": "Baseline MAE £",
-                    "type": "float",
-                    "displayAs": "number",
-                    "visible": true,
-                    "order": 7,
-                    "alignContent": "right",
-                    "allowSearch": false,
-                    "numberFormat": "0.00"
+                    "displayName": "Baseline MAE £"
                   },
                   {
                     "fieldName": "model_mae_gbp",
-                    "displayName": "Model MAE £",
-                    "title": "Model MAE £",
-                    "type": "float",
-                    "displayAs": "number",
-                    "visible": true,
-                    "order": 8,
-                    "alignContent": "right",
-                    "allowSearch": false,
-                    "numberFormat": "0.00"
+                    "displayName": "Model MAE £"
                   },
                   {
                     "fieldName": "mae_improvement_pct",
-                    "displayName": "Improvement %",
-                    "title": "Improvement %",
-                    "type": "float",
-                    "displayAs": "number",
-                    "visible": true,
-                    "order": 9,
-                    "alignContent": "right",
-                    "allowSearch": false,
-                    "numberFormat": "0.00"
+                    "displayName": "Improvement %"
                   }
                 ]
               },
-              "invisibleColumns": [],
-              "allowHTMLByDefault": false,
-              "itemsPerPage": 25,
-              "paginationSize": "default",
-              "condensed": true,
-              "withRowNumber": false,
               "frame": {
                 "showTitle": true,
                 "title": "MAE with denominators and coverage"
@@ -2102,120 +1868,48 @@
               }
             ],
             "spec": {
-              "version": 1,
+              "version": 2,
               "widgetType": "table",
               "encodings": {
                 "columns": [
                   {
                     "fieldName": "city_name",
-                    "displayName": "City",
-                    "title": "City",
-                    "type": "string",
-                    "displayAs": "string",
-                    "visible": true,
-                    "order": 0,
-                    "alignContent": "left",
-                    "allowSearch": true
+                    "displayName": "City"
                   },
                   {
                     "fieldName": "pricing_direction",
-                    "displayName": "Direction",
-                    "title": "Direction",
-                    "type": "string",
-                    "displayAs": "string",
-                    "visible": true,
-                    "order": 1,
-                    "alignContent": "left",
-                    "allowSearch": true
+                    "displayName": "Direction"
                   },
                   {
                     "fieldName": "listing_id",
-                    "displayName": "Listing ID",
-                    "title": "Listing ID",
-                    "type": "string",
-                    "displayAs": "string",
-                    "visible": true,
-                    "order": 2,
-                    "alignContent": "left",
-                    "allowSearch": true
+                    "displayName": "Listing ID"
                   },
                   {
                     "fieldName": "room_type",
-                    "displayName": "Room type",
-                    "title": "Room type",
-                    "type": "string",
-                    "displayAs": "string",
-                    "visible": true,
-                    "order": 3,
-                    "alignContent": "left",
-                    "allowSearch": true
+                    "displayName": "Room type"
                   },
                   {
                     "fieldName": "neighbourhood",
-                    "displayName": "Neighbourhood",
-                    "title": "Neighbourhood",
-                    "type": "string",
-                    "displayAs": "string",
-                    "visible": true,
-                    "order": 4,
-                    "alignContent": "left",
-                    "allowSearch": true
+                    "displayName": "Neighbourhood"
                   },
                   {
                     "fieldName": "accommodates",
-                    "displayName": "Guests",
-                    "title": "Guests",
-                    "type": "integer",
-                    "displayAs": "number",
-                    "visible": true,
-                    "order": 5,
-                    "alignContent": "right",
-                    "allowSearch": false
+                    "displayName": "Guests"
                   },
                   {
                     "fieldName": "actual_price_gbp",
-                    "displayName": "Actual £",
-                    "title": "Actual £",
-                    "type": "float",
-                    "displayAs": "number",
-                    "visible": true,
-                    "order": 6,
-                    "alignContent": "right",
-                    "allowSearch": false,
-                    "numberFormat": "0.00"
+                    "displayName": "Actual £"
                   },
                   {
                     "fieldName": "predicted_price_gbp",
-                    "displayName": "Predicted £",
-                    "title": "Predicted £",
-                    "type": "float",
-                    "displayAs": "number",
-                    "visible": true,
-                    "order": 7,
-                    "alignContent": "right",
-                    "allowSearch": false,
-                    "numberFormat": "0.00"
+                    "displayName": "Predicted £"
                   },
                   {
                     "fieldName": "model_error_gbp",
-                    "displayName": "Error £",
-                    "title": "Error £",
-                    "type": "float",
-                    "displayAs": "number",
-                    "visible": true,
-                    "order": 8,
-                    "alignContent": "right",
-                    "allowSearch": false,
-                    "numberFormat": "0.00"
+                    "displayName": "Error £"
                   }
                 ]
               },
-              "invisibleColumns": [],
-              "allowHTMLByDefault": false,
-              "itemsPerPage": 25,
-              "paginationSize": "default",
-              "condensed": true,
-              "withRowNumber": false,
               "frame": {
                 "showTitle": true,
                 "title": "Most under- and over-priced listings",
