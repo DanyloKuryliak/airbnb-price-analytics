@@ -1158,9 +1158,9 @@
             "name": "model_headline",
             "multilineTextboxSpec": {
               "lines": [
-                "## The model cuts test-set error by 26%: £76.93 MAE against £104.17 for the baseline\n",
+                "## On unseen Greater Manchester the unchanged model scores £79.68 MAE: close to £76.93 on London + Bristol and 21% better than the £100.84 baseline\n",
                 "\n",
-                "London + Bristol test split (12,434 listings, 100% coverage), model v1. The gain is 43% in Bristol and 26% in London, where a few listings advertised at about £5,000-£10,000 a night dominate the largest errors; the median absolute error (£32 against £45) is unaffected by them. Error = predicted - actual; negative means the model under-prices. Baseline = training median for the same room type and guest capacity. For the transfer city, filter by run: first_run is the unchanged model, later runs follow recorded fixes."
+                "Model v1, unchanged first run (run first_run): 7,799 Manchester listings scored (100% coverage), 6,692 with a valid price evaluated. London + Bristol: held-out test split, 12,434 listings, model £76.93 against baseline £104.17 (26% better). The baseline transfers worse than the model: its median absolute error rises from £44.84 to £73.50. Error = predicted - actual; negative means the model under-prices. Baseline = training median for the same room type and guest capacity. Filter by run to compare the first run with later fixes."
               ]
             }
           },
