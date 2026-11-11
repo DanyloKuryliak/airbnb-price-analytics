@@ -1,4 +1,5 @@
-"""Retrieve pinned A/B snapshots, verify checksums, and preserve existing inputs."""
+"""Download pinned Inside Airbnb snapshots and verify file integrity."""
+
 import hashlib
 import json
 import os
@@ -8,44 +9,58 @@ import urllib.request
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+ALLOWED_CITIES = {"london", "bristol", "greater-manchester"}
+BASE_URL = "https://data.insideairbnb.com/united-kingdom/england"
+
+
+def validate_sources(records):
+    cities = [record["city"] for record in records]
+    if len(cities) != len(set(cities)) or not {"london", "bristol"}.issubset(cities):
+        raise ValueError("Manifest must contain unique cities and the original A/B sources.")
+    if not set(cities) <= ALLOWED_CITIES:
+        raise ValueError(f"Unexpected city in manifest: {set(cities) - ALLOWED_CITIES}")
+
+    for source in records:
+        city, date = source["city"], source["snapshot_date"]
+        if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", date):
+            raise ValueError(f"Invalid snapshot date for {city}")
+        relative = f"data/raw/{city}/{date}/listings.csv.gz"
+        url = f"{BASE_URL}/{city}/{date}/data/listings.csv.gz"
+        if source["relative_path"] != relative or source["url"] != url:
+            raise ValueError(f"Unexpected URL or relative path for {city}")
+        if not re.fullmatch(r"[a-fA-F0-9]{64}", source.get("sha256", "")):
+            raise ValueError(f"Missing or invalid SHA-256 for {city}")
+        if type(source.get("bytes")) is not int or source["bytes"] <= 0:
+            raise ValueError(f"Invalid file size for {city}")
+
+
+def verify(path, source):
+    if path.stat().st_size != source["bytes"]:
+        raise ValueError(f"Unexpected file size: {path}")
+    with path.open("rb") as handle:
+        digest = hashlib.file_digest(handle, "sha256").hexdigest()
+    if digest.lower() != source["sha256"].lower():
+        raise ValueError(f"SHA-256 mismatch: {path}")
+
 
 def main():
-    manifest = json.loads((ROOT / 'sources.json').read_text())
-    records = manifest['sources']
-    if len(records) != 2 or {s['city'] for s in records} != {'london', 'bristol'}:
-        raise ValueError('Only London and Bristol are permitted.')
-    page = urllib.request.urlopen('https://insideairbnb.com/get-the-data/', timeout=60).read().decode()
+    records = json.loads((ROOT / "sources.json").read_text(encoding="utf-8"))["sources"]
+    validate_sources(records)
+
     for source in records:
-        city = source['city']
-        allowed = f"https://data.insideairbnb.com/united-kingdom/england/{city}/{source['snapshot_date']}/data/listings.csv.gz"
-        relative = f"data/raw/{city}/{source['snapshot_date']}/listings.csv.gz"
-        if source['url'] != allowed or source['relative_path'] != relative:
-            raise ValueError('Unexpected URL or path in source manifest.')
-        dates = re.findall(rf'https://data\.insideairbnb\.com/united-kingdom/england/{city}/(\d{{4}}-\d{{2}}-\d{{2}})/data/listings\.csv\.gz', page)
-        if not dates:
-            raise RuntimeError(f'Cannot verify the latest snapshot for {city}.')
-        if max(dates) != source['snapshot_date']:
-            raise RuntimeError(f'Newer {city} snapshot exists: {max(dates)}. Review and version a new manifest before a new study; preserve frozen sources.')
-        target = ROOT / relative
+        target = ROOT / source["relative_path"]
         target.parent.mkdir(parents=True, exist_ok=True)
-        if target.exists():
-            with target.open('rb') as handle:
-                digest = hashlib.file_digest(handle, 'sha256').hexdigest()
-            if digest != source['sha256']:
-                raise ValueError(f'Existing input has the wrong checksum: {city}; it was not overwritten.')
-        else:
+        if not target.exists():
             with tempfile.TemporaryDirectory(dir=target.parent) as temporary:
-                staged = Path(temporary) / 'download.gz'
-                with urllib.request.urlopen(allowed, timeout=120) as response, staged.open('wb') as out:
+                staged = Path(temporary) / "download.gz"
+                with urllib.request.urlopen(source["url"], timeout=120) as response, staged.open("wb") as out:
                     while chunk := response.read(1024 * 1024):
                         out.write(chunk)
-                with staged.open('rb') as handle:
-                    digest = hashlib.file_digest(handle, 'sha256').hexdigest()
-                if digest != source['sha256']:
-                    raise ValueError(f'Download checksum mismatch: {city}.')
-                # Same-filesystem linking publishes a complete file without replacement.
-                os.link(staged, target)
-        print(f"{city}: {source['snapshot_date']}, checksum verified")
+                verify(staged, source)
+                os.link(staged, target)  # Publish without replacing existing data.
+        verify(target, source)
+        print(f"{source['city']}: {source['snapshot_date']}, checksum verified")
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()
