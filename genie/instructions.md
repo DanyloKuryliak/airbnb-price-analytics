@@ -59,4 +59,4 @@ The model views exist only after `airbnb_gold.predictions` is written and the vi
 - Enable **entity matching / prompt matching** for `room_type`, `neighbourhood`, `city` and `pricing_direction` (Configure > Data > column > Advanced) so that phrases such as "entire homes" or "Camden" map to stored values.
 - Add every query in `example_queries.sql` under **Configure > SQL queries** with the question as its title. Genie reuses these patterns and marks matching answers as trusted.
 - Add join hints only when needed: `v_model_predictions` and `v_listings` join on `city`, `listing_id`, `snapshot_date`.
-- Add the questions in `benchmarks.md` as benchmarks and run them after each configuration change.
+- After each configuration change, ask the acceptance questions in `README.md` in a new conversation and compare the generated SQL and values with the example queries.
