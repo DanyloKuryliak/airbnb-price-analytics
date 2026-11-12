@@ -8,7 +8,8 @@ Owner: Person 4. A three-page Databricks AI/BI dashboard over the Gold reporting
 | --- | --- |
 | [datasets/](datasets/) | One SQL query per dashboard dataset; the reviewed source of every widget |
 | [airbnb_price_analytics.lvdash.json](airbnb_price_analytics.lvdash.json) | Importable dashboard definition generated from the datasets |
-| `../scripts/build_dashboard.py` | Generator of the definition; holds page headlines and widget layout |
+| `../scripts/build_dashboard.py` | Generator of the definition; holds page headlines, widget titles, colours and layout |
+| [title_facts.sql](title_facts.sql) | Query returning the measured values quoted in widget titles |
 | `../notebooks/04_bi_gold_views.ipynb` | Creates the documented `v_*` views used by the dashboard and Genie |
 
 Regenerate the definition after changing a dataset, headline or layout:
@@ -25,7 +26,7 @@ python3 scripts/build_dashboard.py --catalog workspace --gold-schema airbnb_gold
 | London vs Bristol | Which differences remain when comparing the same room type, guest capacity and price band? | `city_comparison`, `room_type_mix`, `capacity_prices`, `price_bands` |
 | Model | Does the model beat the room-type × guests median baseline, and where does it under- or over-price? | `model_mae`, `model_performance`, `predicted_vs_actual`, `error_by_room_type`, `error_by_neighbourhood`, `largest_errors` |
 
-Each page opens with a headline stating its finding. Overview and comparison headlines use measured EDA values and are verified against the dashboard after deployment. The model headline is written after the model test metrics are published. Every price aggregate shows its valid-price denominator; availability is labelled as open calendar days, not occupancy.
+Each page opens with a headline stating its finding, and every widget title states the finding of that widget. Widgets use grey for context and one accent colour (#2F6FD6) for the subject of the title, value-sorted or ordinal categories, data labels instead of legends, and whole pounds. Values quoted in titles come from `title_facts.sql` or the EDA, model and transfer reports; the generator warns while any title still awaits a measured value. Overview and comparison headlines use measured EDA values and are verified against the dashboard after deployment. The model headline is written after the model test metrics are published. Every price aggregate shows its valid-price denominator; availability is labelled as open calendar days, not occupancy.
 
 ## Deployment
 
