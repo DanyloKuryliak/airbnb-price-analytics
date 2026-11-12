@@ -314,53 +314,133 @@
                   },
                   {
                     "fieldName": "total_listings",
-                    "displayName": "Listings"
+                    "displayName": "Listings",
+                    "format": {
+                      "type": "number-plain",
+                      "decimalPlaces": {
+                        "type": "exact",
+                        "places": 0
+                      }
+                    }
                   },
                   {
                     "fieldName": "valid_price_listings",
-                    "displayName": "With valid price"
+                    "displayName": "With valid price",
+                    "format": {
+                      "type": "number-plain",
+                      "decimalPlaces": {
+                        "type": "exact",
+                        "places": 0
+                      }
+                    }
                   },
                   {
                     "fieldName": "price_coverage_pct",
-                    "displayName": "Price coverage %"
+                    "displayName": "Price coverage",
+                    "format": {
+                      "type": "number-plain",
+                      "decimalPlaces": {
+                        "type": "max",
+                        "places": 1
+                      },
+                      "suffix": "%"
+                    }
                   },
                   {
                     "fieldName": "median_price_gbp",
-                    "displayName": "Median price £"
+                    "displayName": "Median price",
+                    "format": {
+                      "type": "number-currency",
+                      "currencyCode": "GBP",
+                      "decimalPlaces": {
+                        "type": "exact",
+                        "places": 0
+                      }
+                    }
                   },
                   {
                     "fieldName": "median_availability_365",
-                    "displayName": "Median available days /365"
+                    "displayName": "Median available days /365",
+                    "format": {
+                      "type": "number-plain",
+                      "decimalPlaces": {
+                        "type": "exact",
+                        "places": 0
+                      }
+                    }
                   },
                   {
                     "fieldName": "avg_review_score",
-                    "displayName": "Mean rating (0-5)"
+                    "displayName": "Mean rating (0-5)",
+                    "format": {
+                      "type": "number-plain",
+                      "decimalPlaces": {
+                        "type": "max",
+                        "places": 2
+                      }
+                    }
                   },
                   {
                     "fieldName": "review_listings",
-                    "displayName": "Rated listings"
+                    "displayName": "Rated listings",
+                    "format": {
+                      "type": "number-plain",
+                      "decimalPlaces": {
+                        "type": "exact",
+                        "places": 0
+                      }
+                    }
                   },
                   {
                     "fieldName": "distinct_hosts",
-                    "displayName": "Hosts"
+                    "displayName": "Hosts",
+                    "format": {
+                      "type": "number-plain",
+                      "decimalPlaces": {
+                        "type": "exact",
+                        "places": 0
+                      }
+                    }
                   },
                   {
                     "fieldName": "listings_per_host",
-                    "displayName": "Listings per host"
+                    "displayName": "Listings per host",
+                    "format": {
+                      "type": "number-plain",
+                      "decimalPlaces": {
+                        "type": "max",
+                        "places": 2
+                      }
+                    }
                   },
                   {
                     "fieldName": "entire_home_share_pct",
-                    "displayName": "Entire homes %"
+                    "displayName": "Entire homes",
+                    "format": {
+                      "type": "number-plain",
+                      "decimalPlaces": {
+                        "type": "max",
+                        "places": 1
+                      },
+                      "suffix": "%"
+                    }
                   },
                   {
                     "fieldName": "neighbourhoods",
-                    "displayName": "Neighbourhoods"
+                    "displayName": "Neighbourhoods",
+                    "format": {
+                      "type": "number-plain",
+                      "decimalPlaces": {
+                        "type": "exact",
+                        "places": 0
+                      }
+                    }
                   }
                 ]
               },
               "frame": {
                 "showTitle": true,
-                "title": "Headline metrics per city with denominators"
+                "title": "Mean ratings barely differ between cities (4.67-4.76); the table keeps every denominator"
               }
             }
           },
@@ -387,10 +467,6 @@
                     {
                       "name": "median_price_gbp",
                       "expression": "`median_price_gbp`"
-                    },
-                    {
-                      "name": "city_name",
-                      "expression": "`city_name`"
                     }
                   ],
                   "disaggregated": true
@@ -402,30 +478,67 @@
               "widgetType": "bar",
               "encodings": {
                 "x": {
-                  "fieldName": "city_name",
-                  "displayName": "City",
+                  "fieldName": "median_price_gbp",
+                  "displayName": "Median nightly price",
                   "scale": {
-                    "type": "categorical"
+                    "type": "quantitative"
+                  },
+                  "axis": {
+                    "hideTitle": true
+                  },
+                  "format": {
+                    "type": "number-currency",
+                    "currencyCode": "GBP",
+                    "decimalPlaces": {
+                      "type": "exact",
+                      "places": 0
+                    }
                   }
                 },
                 "y": {
-                  "fieldName": "median_price_gbp",
-                  "displayName": "Median nightly price (£)",
+                  "fieldName": "city_name",
+                  "displayName": "City",
                   "scale": {
-                    "type": "quantitative"
+                    "type": "categorical",
+                    "sort": {
+                      "by": "x-reversed"
+                    }
+                  },
+                  "axis": {
+                    "hideTitle": true
                   }
                 },
                 "color": {
                   "fieldName": "city_name",
                   "displayName": "City",
                   "scale": {
-                    "type": "categorical"
+                    "type": "categorical",
+                    "mappings": [
+                      {
+                        "value": "London",
+                        "color": "#2F6FD6"
+                      },
+                      {
+                        "value": "Bristol",
+                        "color": "#A3A3A3"
+                      },
+                      {
+                        "value": "Greater Manchester",
+                        "color": "#A3A3A3"
+                      }
+                    ]
+                  },
+                  "legend": {
+                    "hide": true
                   }
+                },
+                "label": {
+                  "show": true
                 }
               },
               "frame": {
                 "showTitle": true,
-                "title": "Median nightly advertised price"
+                "title": "London's median night costs £175, against £130 in Bristol and £117 in Greater Manchester"
               }
             }
           },
@@ -452,10 +565,6 @@
                     {
                       "name": "median_availability_365",
                       "expression": "`median_availability_365`"
-                    },
-                    {
-                      "name": "city_name",
-                      "expression": "`city_name`"
                     }
                   ],
                   "disaggregated": true
@@ -467,30 +576,68 @@
               "widgetType": "bar",
               "encodings": {
                 "x": {
-                  "fieldName": "city_name",
-                  "displayName": "City",
-                  "scale": {
-                    "type": "categorical"
-                  }
-                },
-                "y": {
                   "fieldName": "median_availability_365",
                   "displayName": "Median available days",
                   "scale": {
                     "type": "quantitative"
+                  },
+                  "axis": {
+                    "hideTitle": true
+                  },
+                  "format": {
+                    "type": "number-plain",
+                    "decimalPlaces": {
+                      "type": "exact",
+                      "places": 0
+                    }
+                  }
+                },
+                "y": {
+                  "fieldName": "city_name",
+                  "displayName": "City",
+                  "scale": {
+                    "type": "categorical",
+                    "sort": {
+                      "by": "x-reversed"
+                    }
+                  },
+                  "axis": {
+                    "hideTitle": true
                   }
                 },
                 "color": {
                   "fieldName": "city_name",
                   "displayName": "City",
                   "scale": {
-                    "type": "categorical"
+                    "type": "categorical",
+                    "mappings": [
+                      {
+                        "value": "London",
+                        "color": "#A3A3A3"
+                      },
+                      {
+                        "value": "Bristol",
+                        "color": "#A3A3A3"
+                      },
+                      {
+                        "value": "Greater Manchester",
+                        "color": "#2F6FD6"
+                      }
+                    ]
+                  },
+                  "legend": {
+                    "hide": true
                   }
+                },
+                "label": {
+                  "show": true
                 }
               },
               "frame": {
                 "showTitle": true,
-                "title": "Median available days in the next 365 (not occupancy)"
+                "title": "Greater Manchester listings are open 267 days a year, more than twice London's 120",
+                "showDescription": true,
+                "description": "Open calendar days in the next 365; not occupancy."
               }
             }
           },
@@ -499,136 +646,6 @@
             "y": 6,
             "width": 2,
             "height": 5
-          }
-        },
-        {
-          "widget": {
-            "name": "overview_reviews",
-            "queries": [
-              {
-                "name": "main_query",
-                "query": {
-                  "datasetName": "city_overview",
-                  "fields": [
-                    {
-                      "name": "city_name",
-                      "expression": "`city_name`"
-                    },
-                    {
-                      "name": "avg_review_score",
-                      "expression": "`avg_review_score`"
-                    },
-                    {
-                      "name": "city_name",
-                      "expression": "`city_name`"
-                    }
-                  ],
-                  "disaggregated": true
-                }
-              }
-            ],
-            "spec": {
-              "version": 3,
-              "widgetType": "bar",
-              "encodings": {
-                "x": {
-                  "fieldName": "city_name",
-                  "displayName": "City",
-                  "scale": {
-                    "type": "categorical"
-                  }
-                },
-                "y": {
-                  "fieldName": "avg_review_score",
-                  "displayName": "Mean rating (0-5)",
-                  "scale": {
-                    "type": "quantitative"
-                  }
-                },
-                "color": {
-                  "fieldName": "city_name",
-                  "displayName": "City",
-                  "scale": {
-                    "type": "categorical"
-                  }
-                }
-              },
-              "frame": {
-                "showTitle": true,
-                "title": "Mean overall review score among rated listings"
-              }
-            }
-          },
-          "position": {
-            "x": 4,
-            "y": 6,
-            "width": 2,
-            "height": 5
-          }
-        },
-        {
-          "widget": {
-            "name": "overview_room_mix",
-            "queries": [
-              {
-                "name": "main_query",
-                "query": {
-                  "datasetName": "room_type_mix",
-                  "fields": [
-                    {
-                      "name": "city_name",
-                      "expression": "`city_name`"
-                    },
-                    {
-                      "name": "share_pct",
-                      "expression": "`share_pct`"
-                    },
-                    {
-                      "name": "room_type",
-                      "expression": "`room_type`"
-                    }
-                  ],
-                  "disaggregated": true
-                }
-              }
-            ],
-            "spec": {
-              "version": 3,
-              "widgetType": "bar",
-              "encodings": {
-                "x": {
-                  "fieldName": "city_name",
-                  "displayName": "City",
-                  "scale": {
-                    "type": "categorical"
-                  }
-                },
-                "y": {
-                  "fieldName": "share_pct",
-                  "displayName": "Share of listings (%)",
-                  "scale": {
-                    "type": "quantitative"
-                  }
-                },
-                "color": {
-                  "fieldName": "room_type",
-                  "displayName": "Room type",
-                  "scale": {
-                    "type": "categorical"
-                  }
-                }
-              },
-              "frame": {
-                "showTitle": true,
-                "title": "Room-type mix"
-              }
-            }
-          },
-          "position": {
-            "x": 0,
-            "y": 11,
-            "width": 2,
-            "height": 8
           }
         },
         {
@@ -647,10 +664,6 @@
                     {
                       "name": "listings_per_host",
                       "expression": "`listings_per_host`"
-                    },
-                    {
-                      "name": "city_name",
-                      "expression": "`city_name`"
                     }
                   ],
                   "disaggregated": true
@@ -662,38 +675,179 @@
               "widgetType": "bar",
               "encodings": {
                 "x": {
-                  "fieldName": "city_name",
-                  "displayName": "City",
-                  "scale": {
-                    "type": "categorical"
-                  }
-                },
-                "y": {
                   "fieldName": "listings_per_host",
                   "displayName": "Listings per host",
                   "scale": {
                     "type": "quantitative"
+                  },
+                  "axis": {
+                    "hideTitle": true
+                  },
+                  "format": {
+                    "type": "number-plain",
+                    "decimalPlaces": {
+                      "type": "max",
+                      "places": 2
+                    }
+                  }
+                },
+                "y": {
+                  "fieldName": "city_name",
+                  "displayName": "City",
+                  "scale": {
+                    "type": "categorical",
+                    "sort": {
+                      "by": "x-reversed"
+                    }
+                  },
+                  "axis": {
+                    "hideTitle": true
                   }
                 },
                 "color": {
                   "fieldName": "city_name",
                   "displayName": "City",
                   "scale": {
-                    "type": "categorical"
+                    "type": "categorical",
+                    "mappings": [
+                      {
+                        "value": "London",
+                        "color": "#A3A3A3"
+                      },
+                      {
+                        "value": "Bristol",
+                        "color": "#A3A3A3"
+                      },
+                      {
+                        "value": "Greater Manchester",
+                        "color": "#2F6FD6"
+                      }
+                    ]
+                  },
+                  "legend": {
+                    "hide": true
                   }
+                },
+                "label": {
+                  "show": true
                 }
               },
               "frame": {
                 "showTitle": true,
-                "title": "Listings per host (multi-listing hosts)"
+                "title": "Manchester hosts run the most listings each: 2.11, against 1.79 in London and 1.67 in Bristol"
+              }
+            }
+          },
+          "position": {
+            "x": 4,
+            "y": 6,
+            "width": 2,
+            "height": 5
+          }
+        },
+        {
+          "widget": {
+            "name": "overview_entire_share",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "room_type_mix",
+                  "fields": [
+                    {
+                      "name": "city_name",
+                      "expression": "`city_name`"
+                    },
+                    {
+                      "name": "share_pct",
+                      "expression": "`share_pct`"
+                    }
+                  ],
+                  "disaggregated": true,
+                  "filters": [
+                    {
+                      "expression": "`room_type` = 'Entire home/apt'"
+                    }
+                  ]
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "share_pct",
+                  "displayName": "Entire-home share",
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "axis": {
+                    "hideTitle": true
+                  },
+                  "format": {
+                    "type": "number-plain",
+                    "decimalPlaces": {
+                      "type": "max",
+                      "places": 1
+                    },
+                    "suffix": "%"
+                  }
+                },
+                "y": {
+                  "fieldName": "city_name",
+                  "displayName": "City",
+                  "scale": {
+                    "type": "categorical",
+                    "sort": {
+                      "by": "x-reversed"
+                    }
+                  },
+                  "axis": {
+                    "hideTitle": true
+                  }
+                },
+                "color": {
+                  "fieldName": "city_name",
+                  "displayName": "City",
+                  "scale": {
+                    "type": "categorical",
+                    "mappings": [
+                      {
+                        "value": "London",
+                        "color": "#A3A3A3"
+                      },
+                      {
+                        "value": "Bristol",
+                        "color": "#2F6FD6"
+                      },
+                      {
+                        "value": "Greater Manchester",
+                        "color": "#A3A3A3"
+                      }
+                    ]
+                  },
+                  "legend": {
+                    "hide": true
+                  }
+                },
+                "label": {
+                  "show": true
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Entire homes are two-thirds of listings in every city, most in Bristol (72%)",
+                "showDescription": true,
+                "description": "Share of listings that are entire homes; hotel and shared rooms are under 1%."
               }
             }
           },
           "position": {
             "x": 0,
-            "y": 19,
+            "y": 11,
             "width": 2,
-            "height": 5
+            "height": 8
           }
         },
         {
@@ -706,19 +860,24 @@
                   "datasetName": "top_neighbourhoods",
                   "fields": [
                     {
-                      "name": "median_price_gbp",
-                      "expression": "`median_price_gbp`"
-                    },
-                    {
                       "name": "neighbourhood",
                       "expression": "`neighbourhood`"
+                    },
+                    {
+                      "name": "median_price_gbp",
+                      "expression": "`median_price_gbp`"
                     },
                     {
                       "name": "city_name",
                       "expression": "`city_name`"
                     }
                   ],
-                  "disaggregated": true
+                  "disaggregated": true,
+                  "filters": [
+                    {
+                      "expression": "`city_name` = 'London'"
+                    }
+                  ]
                 }
               }
             ],
@@ -728,29 +887,68 @@
               "encodings": {
                 "x": {
                   "fieldName": "median_price_gbp",
-                  "displayName": "Median nightly price (£)",
+                  "displayName": "Median nightly price",
                   "scale": {
                     "type": "quantitative"
+                  },
+                  "axis": {
+                    "hideTitle": true
+                  },
+                  "format": {
+                    "type": "number-currency",
+                    "currencyCode": "GBP",
+                    "decimalPlaces": {
+                      "type": "exact",
+                      "places": 0
+                    }
                   }
                 },
                 "y": {
                   "fieldName": "neighbourhood",
                   "displayName": "Neighbourhood",
                   "scale": {
-                    "type": "categorical"
+                    "type": "categorical",
+                    "sort": {
+                      "by": "x-reversed"
+                    }
+                  },
+                  "axis": {
+                    "hideTitle": true
                   }
                 },
                 "color": {
                   "fieldName": "city_name",
                   "displayName": "City",
                   "scale": {
-                    "type": "categorical"
+                    "type": "categorical",
+                    "mappings": [
+                      {
+                        "value": "London",
+                        "color": "#2F6FD6"
+                      },
+                      {
+                        "value": "Bristol",
+                        "color": "#A3A3A3"
+                      },
+                      {
+                        "value": "Greater Manchester",
+                        "color": "#A3A3A3"
+                      }
+                    ]
+                  },
+                  "legend": {
+                    "hide": true
                   }
+                },
+                "label": {
+                  "show": true
                 }
               },
               "frame": {
                 "showTitle": true,
-                "title": "Most expensive neighbourhoods (at least 10 valid prices)"
+                "title": "Westminster is London's most expensive neighbourhood at £282 a night, just ahead of the City of London (£278)",
+                "showDescription": true,
+                "description": "Median nightly price; neighbourhoods with at least 10 valid prices."
               }
             }
           },
@@ -758,7 +956,7 @@
             "x": 2,
             "y": 11,
             "width": 4,
-            "height": 13
+            "height": 8
           }
         }
       ],
@@ -820,7 +1018,12 @@
                       "expression": "`pct_difference_vs_reference`"
                     }
                   ],
-                  "disaggregated": true
+                  "disaggregated": true,
+                  "filters": [
+                    {
+                      "expression": "`city_name` IN ('London', 'Bristol')"
+                    }
+                  ]
                 }
               }
             ],
@@ -843,21 +1046,43 @@
                   },
                   {
                     "fieldName": "value",
-                    "displayName": "Value"
+                    "displayName": "Value",
+                    "format": {
+                      "type": "number-plain",
+                      "decimalPlaces": {
+                        "type": "max",
+                        "places": 2
+                      }
+                    }
                   },
                   {
                     "fieldName": "difference_vs_reference",
-                    "displayName": "Difference vs London"
+                    "displayName": "Difference vs London",
+                    "format": {
+                      "type": "number-plain",
+                      "decimalPlaces": {
+                        "type": "max",
+                        "places": 2
+                      }
+                    }
                   },
                   {
                     "fieldName": "pct_difference_vs_reference",
-                    "displayName": "Difference vs London %"
+                    "displayName": "Difference vs London",
+                    "format": {
+                      "type": "number-plain",
+                      "decimalPlaces": {
+                        "type": "max",
+                        "places": 1
+                      },
+                      "suffix": "%"
+                    }
                   }
                 ]
               },
               "frame": {
                 "showTitle": true,
-                "title": "Side-by-side metrics"
+                "title": "Bristol trails London on every price measure but is open more days"
               }
             }
           },
@@ -865,7 +1090,7 @@
             "x": 0,
             "y": 2,
             "width": 3,
-            "height": 9
+            "height": 8
           }
         },
         {
@@ -890,7 +1115,15 @@
                       "expression": "`city_name`"
                     }
                   ],
-                  "disaggregated": true
+                  "disaggregated": true,
+                  "filters": [
+                    {
+                      "expression": "`city_name` IN ('London', 'Bristol')"
+                    },
+                    {
+                      "expression": "`room_type` IN ('Entire home/apt', 'Private room')"
+                    }
+                  ]
                 }
               }
             ],
@@ -902,27 +1135,62 @@
                   "fieldName": "room_type",
                   "displayName": "Room type",
                   "scale": {
-                    "type": "categorical"
+                    "type": "categorical",
+                    "sort": {
+                      "by": "y-reversed"
+                    }
+                  },
+                  "axis": {
+                    "hideTitle": true
                   }
                 },
                 "y": {
                   "fieldName": "median_price_gbp",
-                  "displayName": "Median nightly price (£)",
+                  "displayName": "Median nightly price",
                   "scale": {
                     "type": "quantitative"
+                  },
+                  "axis": {
+                    "hideTitle": true
+                  },
+                  "format": {
+                    "type": "number-currency",
+                    "currencyCode": "GBP",
+                    "decimalPlaces": {
+                      "type": "exact",
+                      "places": 0
+                    }
                   }
                 },
                 "color": {
                   "fieldName": "city_name",
                   "displayName": "City",
                   "scale": {
-                    "type": "categorical"
+                    "type": "categorical",
+                    "mappings": [
+                      {
+                        "value": "London",
+                        "color": "#A3A3A3"
+                      },
+                      {
+                        "value": "Bristol",
+                        "color": "#2F6FD6"
+                      }
+                    ]
+                  },
+                  "legend": {
+                    "hide": true
                   }
+                },
+                "label": {
+                  "show": true
                 }
               },
               "frame": {
                 "showTitle": true,
-                "title": "Same room type, different price level"
+                "title": "A Bristol entire home costs £158 a night, £69 less than London's £227",
+                "showDescription": true,
+                "description": "Blue: Bristol. Grey: London. Private rooms: £60 against £80."
               },
               "mark": {
                 "layout": "group"
@@ -933,7 +1201,7 @@
             "x": 3,
             "y": 2,
             "width": 3,
-            "height": 9
+            "height": 8
           }
         },
         {
@@ -958,7 +1226,12 @@
                       "expression": "`city_name`"
                     }
                   ],
-                  "disaggregated": true
+                  "disaggregated": true,
+                  "filters": [
+                    {
+                      "expression": "`city_name` IN ('London', 'Bristol')"
+                    }
+                  ]
                 }
               }
             ],
@@ -972,28 +1245,70 @@
                   "scale": {
                     "type": "categorical",
                     "sort": {
-                      "by": "natural-order"
+                      "by": "custom-order",
+                      "orderedValues": [
+                        "1",
+                        "2",
+                        "3",
+                        "4",
+                        "5",
+                        "6",
+                        "7",
+                        "8+"
+                      ]
                     }
+                  },
+                  "axis": {
+                    "hideTitle": true
                   }
                 },
                 "y": {
                   "fieldName": "median_price_gbp",
-                  "displayName": "Median nightly price (£)",
+                  "displayName": "Median nightly price",
                   "scale": {
                     "type": "quantitative"
+                  },
+                  "axis": {
+                    "hideTitle": true
+                  },
+                  "format": {
+                    "type": "number-currency",
+                    "currencyCode": "GBP",
+                    "decimalPlaces": {
+                      "type": "exact",
+                      "places": 0
+                    }
                   }
                 },
                 "color": {
                   "fieldName": "city_name",
                   "displayName": "City",
                   "scale": {
-                    "type": "categorical"
+                    "type": "categorical",
+                    "mappings": [
+                      {
+                        "value": "London",
+                        "color": "#A3A3A3"
+                      },
+                      {
+                        "value": "Bristol",
+                        "color": "#2F6FD6"
+                      }
+                    ]
+                  },
+                  "legend": {
+                    "hide": true
                   }
+                },
+                "label": {
+                  "show": true
                 }
               },
               "frame": {
                 "showTitle": true,
-                "title": "Median price rises with guest capacity in both cities"
+                "title": "London's premium over Bristol grows with group size: £23 for 2 guests, £68 for 4",
+                "showDescription": true,
+                "description": "Blue: Bristol. Grey: London."
               },
               "mark": {
                 "layout": "group"
@@ -1002,7 +1317,7 @@
           },
           "position": {
             "x": 0,
-            "y": 11,
+            "y": 10,
             "width": 3,
             "height": 7
           }
@@ -1029,7 +1344,12 @@
                       "expression": "`city_name`"
                     }
                   ],
-                  "disaggregated": true
+                  "disaggregated": true,
+                  "filters": [
+                    {
+                      "expression": "`city_name` IN ('London', 'Bristol')"
+                    }
+                  ]
                 }
               }
             ],
@@ -1043,28 +1363,70 @@
                   "scale": {
                     "type": "categorical",
                     "sort": {
-                      "by": "natural-order"
+                      "by": "custom-order",
+                      "orderedValues": [
+                        "under £50",
+                        "£50-99",
+                        "£100-149",
+                        "£150-199",
+                        "£200-299",
+                        "£300-499",
+                        "£500-999",
+                        "£1,000+"
+                      ]
                     }
+                  },
+                  "axis": {
+                    "hideTitle": true
                   }
                 },
                 "y": {
                   "fieldName": "share_pct",
-                  "displayName": "Share of priced listings (%)",
+                  "displayName": "Share of priced listings",
                   "scale": {
                     "type": "quantitative"
+                  },
+                  "axis": {
+                    "hideTitle": true
+                  },
+                  "format": {
+                    "type": "number-plain",
+                    "decimalPlaces": {
+                      "type": "max",
+                      "places": 1
+                    },
+                    "suffix": "%"
                   }
                 },
                 "color": {
                   "fieldName": "city_name",
                   "displayName": "City",
                   "scale": {
-                    "type": "categorical"
+                    "type": "categorical",
+                    "mappings": [
+                      {
+                        "value": "London",
+                        "color": "#A3A3A3"
+                      },
+                      {
+                        "value": "Bristol",
+                        "color": "#2F6FD6"
+                      }
+                    ]
+                  },
+                  "legend": {
+                    "hide": true
                   }
+                },
+                "label": {
+                  "show": true
                 }
               },
               "frame": {
                 "showTitle": true,
-                "title": "Price distribution"
+                "title": "52% of Bristol listings cost £50-149 a night, against 38% in London",
+                "showDescription": true,
+                "description": "Blue: Bristol. Grey: London."
               },
               "mark": {
                 "layout": "group"
@@ -1073,77 +1435,9 @@
           },
           "position": {
             "x": 3,
-            "y": 11,
+            "y": 10,
             "width": 3,
             "height": 7
-          }
-        },
-        {
-          "widget": {
-            "name": "comparison_room_share",
-            "queries": [
-              {
-                "name": "main_query",
-                "query": {
-                  "datasetName": "room_type_mix",
-                  "fields": [
-                    {
-                      "name": "room_type",
-                      "expression": "`room_type`"
-                    },
-                    {
-                      "name": "share_pct",
-                      "expression": "`share_pct`"
-                    },
-                    {
-                      "name": "city_name",
-                      "expression": "`city_name`"
-                    }
-                  ],
-                  "disaggregated": true
-                }
-              }
-            ],
-            "spec": {
-              "version": 3,
-              "widgetType": "bar",
-              "encodings": {
-                "x": {
-                  "fieldName": "room_type",
-                  "displayName": "Room type",
-                  "scale": {
-                    "type": "categorical"
-                  }
-                },
-                "y": {
-                  "fieldName": "share_pct",
-                  "displayName": "Share of listings (%)",
-                  "scale": {
-                    "type": "quantitative"
-                  }
-                },
-                "color": {
-                  "fieldName": "city_name",
-                  "displayName": "City",
-                  "scale": {
-                    "type": "categorical"
-                  }
-                }
-              },
-              "frame": {
-                "showTitle": true,
-                "title": "Room-type composition"
-              },
-              "mark": {
-                "layout": "group"
-              }
-            }
-          },
-          "position": {
-            "x": 0,
-            "y": 18,
-            "width": 6,
-            "height": 6
           }
         }
       ],
@@ -1604,27 +1898,62 @@
                   "fieldName": "city_name",
                   "displayName": "City",
                   "scale": {
-                    "type": "categorical"
+                    "type": "categorical",
+                    "sort": {
+                      "by": "y-reversed"
+                    }
+                  },
+                  "axis": {
+                    "hideTitle": true
                   }
                 },
                 "y": {
                   "fieldName": "mae_gbp",
-                  "displayName": "MAE (£)",
+                  "displayName": "MAE",
                   "scale": {
                     "type": "quantitative"
+                  },
+                  "axis": {
+                    "hideTitle": true
+                  },
+                  "format": {
+                    "type": "number-currency",
+                    "currencyCode": "GBP",
+                    "decimalPlaces": {
+                      "type": "exact",
+                      "places": 0
+                    }
                   }
                 },
                 "color": {
                   "fieldName": "estimator",
                   "displayName": "Estimator",
                   "scale": {
-                    "type": "categorical"
+                    "type": "categorical",
+                    "mappings": [
+                      {
+                        "value": "Baseline: median by room type and guests",
+                        "color": "#A3A3A3"
+                      },
+                      {
+                        "value": "Model",
+                        "color": "#2F6FD6"
+                      }
+                    ]
+                  },
+                  "legend": {
+                    "hide": true
                   }
+                },
+                "label": {
+                  "show": true
                 }
               },
               "frame": {
                 "showTitle": true,
-                "title": "Test-set MAE: model against baseline"
+                "title": "In Manchester the model's MAE is £79.68 against £100.84 for the baseline",
+                "showDescription": true,
+                "description": "Blue: model. Grey: baseline. London and Bristol: test split; Manchester: unchanged first run."
               },
               "mark": {
                 "layout": "group"
@@ -1723,41 +2052,103 @@
                   },
                   {
                     "fieldName": "listings_in_set",
-                    "displayName": "Listings"
+                    "displayName": "Listings",
+                    "format": {
+                      "type": "number-plain",
+                      "decimalPlaces": {
+                        "type": "exact",
+                        "places": 0
+                      }
+                    }
                   },
                   {
                     "fieldName": "prediction_coverage_pct",
-                    "displayName": "Coverage %"
+                    "displayName": "Coverage",
+                    "format": {
+                      "type": "number-plain",
+                      "decimalPlaces": {
+                        "type": "max",
+                        "places": 1
+                      },
+                      "suffix": "%"
+                    }
                   },
                   {
                     "fieldName": "model_evaluated_listings",
-                    "displayName": "Evaluated"
+                    "displayName": "Evaluated",
+                    "format": {
+                      "type": "number-plain",
+                      "decimalPlaces": {
+                        "type": "exact",
+                        "places": 0
+                      }
+                    }
                   },
                   {
                     "fieldName": "baseline_mae_gbp",
-                    "displayName": "Baseline MAE £"
+                    "displayName": "Baseline MAE",
+                    "format": {
+                      "type": "number-currency",
+                      "currencyCode": "GBP",
+                      "decimalPlaces": {
+                        "type": "exact",
+                        "places": 2
+                      }
+                    }
                   },
                   {
                     "fieldName": "model_mae_gbp",
-                    "displayName": "Model MAE £"
+                    "displayName": "Model MAE",
+                    "format": {
+                      "type": "number-currency",
+                      "currencyCode": "GBP",
+                      "decimalPlaces": {
+                        "type": "exact",
+                        "places": 2
+                      }
+                    }
                   },
                   {
                     "fieldName": "mae_improvement_pct",
-                    "displayName": "Improvement %"
+                    "displayName": "Improvement",
+                    "format": {
+                      "type": "number-plain",
+                      "decimalPlaces": {
+                        "type": "max",
+                        "places": 1
+                      },
+                      "suffix": "%"
+                    }
                   },
                   {
                     "fieldName": "baseline_median_abs_error_gbp",
-                    "displayName": "Baseline median AE £"
+                    "displayName": "Baseline median AE",
+                    "format": {
+                      "type": "number-currency",
+                      "currencyCode": "GBP",
+                      "decimalPlaces": {
+                        "type": "exact",
+                        "places": 2
+                      }
+                    }
                   },
                   {
                     "fieldName": "model_median_abs_error_gbp",
-                    "displayName": "Model median AE £"
+                    "displayName": "Model median AE",
+                    "format": {
+                      "type": "number-currency",
+                      "currencyCode": "GBP",
+                      "decimalPlaces": {
+                        "type": "exact",
+                        "places": 2
+                      }
+                    }
                   }
                 ]
               },
               "frame": {
                 "showTitle": true,
-                "title": "MAE with denominators and coverage"
+                "title": "Manchester's typical error rises by a third (median £43.38 against £32.31), more than its MAE"
               }
             }
           },
@@ -1800,29 +2191,64 @@
               "encodings": {
                 "x": {
                   "fieldName": "actual_price_gbp",
-                  "displayName": "Actual price (£)",
+                  "displayName": "Actual price",
                   "scale": {
                     "type": "quantitative"
+                  },
+                  "format": {
+                    "type": "number-currency",
+                    "currencyCode": "GBP",
+                    "decimalPlaces": {
+                      "type": "exact",
+                      "places": 0
+                    }
                   }
                 },
                 "y": {
                   "fieldName": "predicted_price_gbp",
-                  "displayName": "Predicted price (£)",
+                  "displayName": "Predicted price",
                   "scale": {
                     "type": "quantitative"
+                  },
+                  "format": {
+                    "type": "number-currency",
+                    "currencyCode": "GBP",
+                    "decimalPlaces": {
+                      "type": "exact",
+                      "places": 0
+                    }
                   }
                 },
                 "color": {
                   "fieldName": "city_name",
                   "displayName": "City",
                   "scale": {
-                    "type": "categorical"
+                    "type": "categorical",
+                    "mappings": [
+                      {
+                        "value": "London",
+                        "color": "#A3A3A3"
+                      },
+                      {
+                        "value": "Bristol",
+                        "color": "#A3A3A3"
+                      },
+                      {
+                        "value": "Greater Manchester",
+                        "color": "#2F6FD6"
+                      }
+                    ]
+                  },
+                  "legend": {
+                    "hide": true
                   }
                 }
               },
               "frame": {
                 "showTitle": true,
-                "title": "Predicted against actual price (actual up to £1,000)"
+                "title": "The model overprices 78% of Manchester listings, against about half in London and Bristol",
+                "showDescription": true,
+                "description": "Blue: Greater Manchester. Grey: London and Bristol. Points above the diagonal are overpriced; actual prices up to £1,000."
               }
             }
           },
@@ -1849,13 +2275,14 @@
                     {
                       "name": "model_mae_gbp",
                       "expression": "`model_mae_gbp`"
-                    },
-                    {
-                      "name": "city_name",
-                      "expression": "`city_name`"
                     }
                   ],
-                  "disaggregated": true
+                  "disaggregated": true,
+                  "filters": [
+                    {
+                      "expression": "`city_name` = 'Greater Manchester'"
+                    }
+                  ]
                 }
               }
             ],
@@ -1864,33 +2291,71 @@
               "widgetType": "bar",
               "encodings": {
                 "x": {
-                  "fieldName": "room_type",
-                  "displayName": "Room type",
+                  "fieldName": "model_mae_gbp",
+                  "displayName": "Model MAE",
                   "scale": {
-                    "type": "categorical"
+                    "type": "quantitative"
+                  },
+                  "axis": {
+                    "hideTitle": true
+                  },
+                  "format": {
+                    "type": "number-currency",
+                    "currencyCode": "GBP",
+                    "decimalPlaces": {
+                      "type": "exact",
+                      "places": 0
+                    }
                   }
                 },
                 "y": {
-                  "fieldName": "model_mae_gbp",
-                  "displayName": "Model MAE (£)",
+                  "fieldName": "room_type",
+                  "displayName": "Room type",
                   "scale": {
-                    "type": "quantitative"
+                    "type": "categorical",
+                    "sort": {
+                      "by": "x-reversed"
+                    }
+                  },
+                  "axis": {
+                    "hideTitle": true
                   }
                 },
                 "color": {
-                  "fieldName": "city_name",
-                  "displayName": "City",
+                  "fieldName": "room_type",
+                  "displayName": "Room type",
                   "scale": {
-                    "type": "categorical"
+                    "type": "categorical",
+                    "mappings": [
+                      {
+                        "value": "Entire home/apt",
+                        "color": "#2F6FD6"
+                      },
+                      {
+                        "value": "Private room",
+                        "color": "#A3A3A3"
+                      },
+                      {
+                        "value": "Hotel room",
+                        "color": "#A3A3A3"
+                      },
+                      {
+                        "value": "Shared room",
+                        "color": "#A3A3A3"
+                      }
+                    ]
+                  },
+                  "legend": {
+                    "hide": true
                   }
+                },
+                "label": {
+                  "show": true
                 }
               },
               "frame": {
                 "showTitle": true,
-                "title": "Error by room type"
-              },
-              "mark": {
-                "layout": "group"
+                "title": "Entire homes carry Manchester's largest error: £100 MAE, against £37 for private rooms"
               }
             }
           },
@@ -1911,19 +2376,20 @@
                   "datasetName": "error_by_neighbourhood",
                   "fields": [
                     {
-                      "name": "model_mae_gbp",
-                      "expression": "`model_mae_gbp`"
-                    },
-                    {
                       "name": "neighbourhood",
                       "expression": "`neighbourhood`"
                     },
                     {
-                      "name": "city_name",
-                      "expression": "`city_name`"
+                      "name": "model_mae_gbp",
+                      "expression": "`model_mae_gbp`"
                     }
                   ],
-                  "disaggregated": true
+                  "disaggregated": true,
+                  "filters": [
+                    {
+                      "expression": "`city_name` = 'Greater Manchester'"
+                    }
+                  ]
                 }
               }
             ],
@@ -1933,29 +2399,96 @@
               "encodings": {
                 "x": {
                   "fieldName": "model_mae_gbp",
-                  "displayName": "Model MAE (£)",
+                  "displayName": "Model MAE",
                   "scale": {
                     "type": "quantitative"
+                  },
+                  "axis": {
+                    "hideTitle": true
+                  },
+                  "format": {
+                    "type": "number-currency",
+                    "currencyCode": "GBP",
+                    "decimalPlaces": {
+                      "type": "exact",
+                      "places": 0
+                    }
                   }
                 },
                 "y": {
                   "fieldName": "neighbourhood",
                   "displayName": "Neighbourhood",
                   "scale": {
-                    "type": "categorical"
+                    "type": "categorical",
+                    "sort": {
+                      "by": "x-reversed"
+                    }
+                  },
+                  "axis": {
+                    "hideTitle": true
                   }
                 },
                 "color": {
-                  "fieldName": "city_name",
-                  "displayName": "City",
+                  "fieldName": "neighbourhood",
+                  "displayName": "Neighbourhood",
                   "scale": {
-                    "type": "categorical"
+                    "type": "categorical",
+                    "mappings": [
+                      {
+                        "value": "Ardwick",
+                        "color": "#2F6FD6"
+                      },
+                      {
+                        "value": "Bradford",
+                        "color": "#A3A3A3"
+                      },
+                      {
+                        "value": "Ancoats and Clayton",
+                        "color": "#A3A3A3"
+                      },
+                      {
+                        "value": "Burnage",
+                        "color": "#A3A3A3"
+                      },
+                      {
+                        "value": "Tameside District",
+                        "color": "#A3A3A3"
+                      },
+                      {
+                        "value": "Harpurhey",
+                        "color": "#A3A3A3"
+                      },
+                      {
+                        "value": "Hulme",
+                        "color": "#A3A3A3"
+                      },
+                      {
+                        "value": "Moston",
+                        "color": "#A3A3A3"
+                      },
+                      {
+                        "value": "Gorton South",
+                        "color": "#A3A3A3"
+                      },
+                      {
+                        "value": "Crumpsall",
+                        "color": "#A3A3A3"
+                      }
+                    ]
+                  },
+                  "legend": {
+                    "hide": true
                   }
+                },
+                "label": {
+                  "show": true
                 }
               },
               "frame": {
                 "showTitle": true,
-                "title": "Neighbourhoods with the highest error (at least 20 evaluated listings)"
+                "title": "Ardwick has Manchester's highest error: £162 MAE across 139 listings",
+                "showDescription": true,
+                "description": "Ten neighbourhoods with the highest model MAE; at least 20 evaluated listings."
               }
             }
           },
@@ -1978,10 +2511,6 @@
                     {
                       "name": "city_name",
                       "expression": "`city_name`"
-                    },
-                    {
-                      "name": "run_label",
-                      "expression": "`run_label`"
                     },
                     {
                       "name": "pricing_direction",
@@ -2030,10 +2559,6 @@
                     "displayName": "City"
                   },
                   {
-                    "fieldName": "run_label",
-                    "displayName": "Run"
-                  },
-                  {
                     "fieldName": "pricing_direction",
                     "displayName": "Direction"
                   },
@@ -2051,27 +2576,58 @@
                   },
                   {
                     "fieldName": "accommodates",
-                    "displayName": "Guests"
+                    "displayName": "Guests",
+                    "format": {
+                      "type": "number-plain",
+                      "decimalPlaces": {
+                        "type": "exact",
+                        "places": 0
+                      }
+                    }
                   },
                   {
                     "fieldName": "actual_price_gbp",
-                    "displayName": "Actual £"
+                    "displayName": "Actual",
+                    "format": {
+                      "type": "number-currency",
+                      "currencyCode": "GBP",
+                      "decimalPlaces": {
+                        "type": "exact",
+                        "places": 0
+                      }
+                    }
                   },
                   {
                     "fieldName": "predicted_price_gbp",
-                    "displayName": "Predicted £"
+                    "displayName": "Predicted",
+                    "format": {
+                      "type": "number-currency",
+                      "currencyCode": "GBP",
+                      "decimalPlaces": {
+                        "type": "exact",
+                        "places": 0
+                      }
+                    }
                   },
                   {
                     "fieldName": "model_error_gbp",
-                    "displayName": "Error £"
+                    "displayName": "Error",
+                    "format": {
+                      "type": "number-currency",
+                      "currencyCode": "GBP",
+                      "decimalPlaces": {
+                        "type": "exact",
+                        "places": 0
+                      }
+                    }
                   }
                 ]
               },
               "frame": {
                 "showTitle": true,
-                "title": "Most under- and over-priced listings",
+                "title": "The worst under-pricing comes from London listings advertised at about £10,000 a night",
                 "showDescription": true,
-                "description": "Error = predicted - actual."
+                "description": "Error = predicted - actual; ten largest per city and direction. Six London listings priced £9,925-£10,163 were predicted at £155-£861 (docs/model_results.md)."
               }
             }
           },
